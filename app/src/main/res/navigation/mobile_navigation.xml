@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="edu.tacoma.wa.pocketdungeonalt.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/nav_campaigns"
+        android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignListFragment"
+        android:label="@string/menu_campaign_list"
+        tools:layout="@layout/fragment_campaign_list" >
+        <action
+            android:id="@+id/nav_action_join"
+            app:destination="@id/nav_campaign_join" />
+        <action
+            android:id="@+id/nav_action_campaign_view"
+            app:destination="@id/nav_campaign_view" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="edu.tacoma.wa.pocketdungeonalt.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_campaign_add"
+        android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignAddFragment"
+        android:label="CampaignAddFragment"
+        tools:layout="@layout/fragment_campaign_add"/>
+    <fragment
+        android:id="@+id/nav_characters"
+        android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterListFragment"
+        android:label="CharacterListFragment"
+        tools:layout="@layout/fragment_character_list"/>
+    <fragment
+        android:id="@+id/nav_character_add"
+        android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterAddFragment"
+        android:label="CharacterAddFragment"
+        tools:layout="@layout/fragment_campaign_add"/>
+
+    <fragment
+        android:id="@+id/nav_campaign_join"
+        android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignJoinFragment"
+        android:label="CampaignJoinFragment"
+        tools:layout="@layout/fragment_campaign_join">
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_campaign_view"
+        android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignViewFragment"
+        android:label="CampaignViewFragment"
+        tools:layout="@layout/fragment_campaign_view"/>
+</navigation>

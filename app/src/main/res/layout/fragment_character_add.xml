@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".character."
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <!-- character name -->
+    <TextView
+            android:id="@+id/name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/character_name_input"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Character Name"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_label" />
+
+    <!-- character level -->
+    <TextView
+            android:id="@+id/level_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Level"
+            app:layout_constraintStart_toStartOf="@+id/character_level_input"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/character_level_input"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/character_name_input"
+        app:layout_constraintTop_toBottomOf="@+id/level_label" />
+
+    <!-- character class -->
+    <TextView
+        android:id="@+id/class_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Class"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/character_name_input" />
+
+    <EditText
+        android:id="@+id/character_class_input"
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Class"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/class_label" />
+
+    <!-- character race -->
+    <TextView
+            android:id="@+id/race_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Race"
+            app:layout_constraintStart_toStartOf="@+id/character_race_input"
+            app:layout_constraintTop_toBottomOf="@+id/character_level_input" />
+
+    <EditText
+        android:id="@+id/character_race_input"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:ems="10"
+        android:hint="Race"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/character_class_input"
+        app:layout_constraintTop_toBottomOf="@+id/race_label" />
+
+    <!-- alignment -->
+    <TextView
+        android:id="@+id/alignment_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Alignment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/character_class_input" />
+
+    <EditText
+        android:id="@+id/character_alignment_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Alignment"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alignment_label" />
+
+    <!-- experience -->
+    <TextView
+            android:id="@+id/experience_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Experience"
+            app:layout_constraintStart_toStartOf="@+id/character_experience_input"
+            app:layout_constraintTop_toBottomOf="@+id/character_race_input" />
+
+    <EditText
+        android:id="@+id/character_experience_input"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/character_alignment_input"
+        app:layout_constraintTop_toBottomOf="@+id/experience_label" />
+
+    <!-- background -->
+    <Button
+        android:id="@+id/background_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/character_alignment_input" />
+
+    <!-- info -->
+    <Button
+        android:id="@+id/info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/background_button" />
+
+    <!-- perception -->
+    <TextView
+            android:id="@+id/perception_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:text="Perception"
+            app:layout_constraintStart_toEndOf="@+id/background_button"
+            app:layout_constraintTop_toBottomOf="@+id/character_alignment_input" />
+
+    <EditText
+        android:id="@+id/character_perception_input"
+        android:layout_width="31dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/perception_label"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/perception_label"
+        app:layout_constraintTop_toBottomOf="@+id/perception_label" />
+
+    <!-- inspiration -->
+    <TextView
+            android:id="@+id/inspiration_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:text="Inspiration"
+            app:layout_constraintStart_toEndOf="@+id/perception_label"
+            app:layout_constraintTop_toBottomOf="@+id/character_experience_input" />
+
+    <EditText
+        android:id="@+id/character_inspiration_input"
+        android:layout_width="31dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/inspiration_label"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/inspiration_label"
+        app:layout_constraintTop_toBottomOf="@+id/inspiration_label" />
+
+    <!-- initiative -->
+    <TextView
+        android:id="@+id/initiative_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginRight="23dp"
+        android:text="Initiative"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/inspiration_label"
+        app:layout_constraintTop_toBottomOf="@+id/character_experience_input" />
+
+    <EditText
+        android:id="@+id/character_initiative_input"
+        android:layout_width="31dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/initiative_label"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/initiative_label"
+        app:layout_constraintTop_toBottomOf="@+id/initiative_label" />
+
+    <!-- speed -->
+    <TextView
+        android:id="@+id/speed_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Speed"
+        app:layout_constraintStart_toStartOf="@+id/speed_input"
+        app:layout_constraintTop_toBottomOf="@+id/character_initiative_input" />
+
+    <EditText
+            android:id="@+id/speed_input"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:ems="10"
+            android:hint="Speed"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@+id/background_button"
+            app:layout_constraintTop_toBottomOf="@+id/speed_label" />
+
+    <!-- hit dice -->
+    <TextView
+        android:id="@+id/hit_dice_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Hit Dice"
+        app:layout_constraintStart_toStartOf="@+id/hit_dice_input"
+        app:layout_constraintTop_toBottomOf="@+id/character_initiative_input" />
+
+    <EditText
+        android:id="@+id/hit_dice_input"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:ems="10"
+        android:hint="Hit Dice"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/speed_input"
+        app:layout_constraintTop_toBottomOf="@+id/hit_dice_label" />
+
+    <!-- current hp -->
+    <TextView
+        android:id="@+id/current_hp_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Current HP"
+        app:layout_constraintEnd_toStartOf="@+id/current_hp_input"
+        app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
+
+    <EditText
+        android:id="@+id/current_hp_input"
+        android:layout_width="31dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/hit_dice_input"
+        app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
+
+    <!-- max hp -->
+    <TextView
+        android:id="@+id/max_hp_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Max HP"
+        app:layout_constraintEnd_toStartOf="@+id/max_hp_input"
+        app:layout_constraintTop_toBottomOf="@+id/current_hp_input" />
+
+    <EditText
+    android:id="@+id/max_hp_input"
+    android:layout_width="31dp"
+    android:layout_height="49dp"
+    android:layout_marginTop="8dp"
+    android:ems="10"
+    android:hint="0"
+    android:inputType="number"
+    app:layout_constraintEnd_toEndOf="@+id/hit_dice_input"
+    app:layout_constraintTop_toBottomOf="@+id/current_hp_input" />
+
+    <!-- armor class -->
+    <TextView
+        android:id="@+id/ac_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Armor Class"
+        app:layout_constraintStart_toEndOf="@+id/background_button"
+        app:layout_constraintTop_toBottomOf="@+id/speed_input" />
+
+    <EditText
+        android:id="@+id/ac_input"
+        android:layout_width="31dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/ac_label"
+        app:layout_constraintTop_toBottomOf="@+id/speed_input" />
+
+    <!-- proficiency -->
+    <TextView
+        android:id="@+id/proficiency_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="24dp"
+        android:text="Proficiency"
+        app:layout_constraintStart_toEndOf="@+id/background_button"
+        app:layout_constraintTop_toBottomOf="@+id/ac_input" />
+
+    <EditText
+        android:id="@+id/proficiency_input"
+        android:layout_width="31dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/ac_input"
+        app:layout_constraintLeft_toRightOf="@id/proficiency_label"
+        app:layout_constraintTop_toBottomOf="@+id/ac_input" />
+
+
+
+
+
+
+
+
+
+    <!-- stats -->
+
+    <!-- str -->
+    <TextView
+        android:id="@+id/str_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="STR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+
+    <EditText
+        android:id="@+id/str_input"
+        android:layout_width="31dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+
+    <TextView
+        android:id="@+id/str_mod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
+        android:text="+0"
+        app:layout_constraintStart_toEndOf="@id/str_input"
+        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+
+    <!-- dex -->
+    <TextView
+        android:id="@+id/dex_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="DEX"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/str_label" />
+
+    <EditText
+            android:id="@+id/dex_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/str_input" />
+
+    <TextView
+        android:id="@+id/dex_mod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="40dp"
+        android:text="+0"
+        app:layout_constraintStart_toEndOf="@id/dex_input"
+        app:layout_constraintTop_toBottomOf="@+id/str_mod" />
+
+    <!-- const -->
+    <TextView
+        android:id="@+id/con_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="CON"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dex_label" />
+
+    <EditText
+            android:id="@+id/con_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dex_input" />
+
+    <TextView
+        android:id="@+id/con_mod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="40dp"
+        android:text="+0"
+        app:layout_constraintStart_toEndOf="@id/con_input"
+        app:layout_constraintTop_toBottomOf="@+id/dex_mod" />
+
+    <!-- int -->
+    <TextView
+        android:id="@+id/int_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="INT"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/con_label" />
+
+    <EditText
+            android:id="@+id/int_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/con_input" />
+
+    <TextView
+        android:id="@+id/int_mod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="40dp"
+        android:text="+0"
+        app:layout_constraintStart_toEndOf="@id/int_input"
+        app:layout_constraintTop_toBottomOf="@+id/con_mod" />
+
+    <!-- wis -->
+    <TextView
+        android:id="@+id/wis_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="WIS"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/int_label" />
+
+    <EditText
+            android:id="@+id/wis_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/int_input" />
+
+    <TextView
+        android:id="@+id/wis_mod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="40dp"
+        android:text="+0"
+        app:layout_constraintStart_toEndOf="@id/wis_input"
+        app:layout_constraintTop_toBottomOf="@+id/int_mod" />
+
+    <!-- cha -->
+    <TextView
+        android:id="@+id/cha_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="CHA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wis_label" />
+
+    <EditText
+            android:id="@+id/cha_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wis_input" />
+
+    <TextView
+        android:id="@+id/cha_mod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="40dp"
+        android:text="+0"
+        app:layout_constraintStart_toEndOf="@id/cha_input"
+        app:layout_constraintTop_toBottomOf="@+id/wis_mod" />
+
+
+    <!-- skills -->
+
+        <!-- other proficiency -->
+
+        <!-- attacks -->
+
+        <!-- equipment -->
+
+        <!-- cancel -->
+
+        <!-- create -->
+
+        <Button
+            android:id="@+id/skills_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="Skills"
+            app:layout_constraintEnd_toStartOf="@+id/attacks_button"
+            app:layout_constraintStart_toEndOf="@+id/info_button"
+            app:layout_constraintTop_toBottomOf="@+id/proficiency_input" />
+
+        <Button
+            android:id="@+id/otherProf_button"
+            android:layout_width="127dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Other Proficiencies"
+            app:layout_constraintEnd_toStartOf="@+id/equipment_button"
+            app:layout_constraintTop_toBottomOf="@+id/skills_button" />
+
+        <Button
+            android:id="@+id/attacks_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Attacks"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/proficiency_input" />
+
+        <Button
+            android:id="@+id/equipment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Equipment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/attacks_button" />
+
+        <Button
+            android:id="@+id/cancell_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="Cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/add_button" />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="16dp"
+            android:text="Create"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

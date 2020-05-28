@@ -1,0 +1,43 @@
+<resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
+
+
+    <string name="app_name">PocketDungeon</string>
+    <string name="LOGIN_PREFS">edu.tacoma.uw.pocketdungeonalt.PREFS</string>
+    <string name="LOGGEDIN">loggedin</string>
+    <string name="action_logout">Sign Out</string>
+    <string name="USERID">userid</string>
+    <string name="CAMPAIGNID">campaignid</string>
+    <string name="CHARACTERID">characterid</string>
+
+    <string name="Open">open</string>
+    <string name="Close">close</string>
+    <string name="characters">Characters</string>
+    <string name="campaigns">Campaigns</string>
+    <string name="title_activity_character_list">CharacterListActivity</string>
+    <string name="title_activity_character_detail">CharacterDetailActivity</string>
+
+
+    <string name="enter_character_name_hint">Name</string>
+    <string name="enter_character_class_hint">Class</string>
+    <string name="enter_character_race_hint">Race</string>
+    <string name="enter_character_level_hint">Level</string>
+    <string name="btn_add_character">Add Character</string>
+
+    <string name="title_character_list">Characters</string>
+    <string name="title_character_detail">Character Detail</string>
+    <string name="term_text">Select term</string>
+    <string name="menu_campaign_list">campaign list</string>
+    <string name="menu_campaign_add">campaign add</string>
+</resources>

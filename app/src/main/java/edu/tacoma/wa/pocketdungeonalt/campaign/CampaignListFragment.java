@@ -1,0 +1,290 @@
+package edu.tacoma.wa.pocketdungeonalt.campaign;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+
+import edu.tacoma.wa.pocketdungeonalt.R;
+import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
+
+import static androidx.core.os.BundleKt.bundleOf;
+
+public class CampaignListFragment extends Fragment {
+
+
+    private List<Campaign> mCampaignList;
+    private RecyclerView mRecyclerView;
+    private SharedPreferences mSharedPreferences;
+
+    private JSONObject mCampaignJSON;
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        View view = inflater.inflate(R.layout.fragment_campaign_list, container, false);
+
+        final EditText campaign_code = view.findViewById(R.id.campaign_code_input);
+
+        mRecyclerView = view.findViewById(R.id.recyclerView);
+        Button add_button = view.findViewById(R.id.add_button);
+        add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("clicked");
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_campaign_add);
+
+            }
+        });
+
+        /** Set up search button listener.
+         * Get campaign code from user entry. */
+        Button search_button = view.findViewById(R.id.search_button);
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String campaignId = campaign_code.getText().toString();
+                StringBuilder url = new StringBuilder(getString(R.string.search_campaign));
+                url.append(campaignId);
+                mCampaignJSON = new JSONObject();
+                new SearchCampaignTask().execute(url.toString());
+            }
+        });
+
+        assert mRecyclerView != null;
+        setupRecyclerView(mRecyclerView);
+
+        mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
+
+        StringBuilder url = new StringBuilder(getString(R.string.get_campaigns));
+        url.append(userID);
+
+        mCampaignJSON = new JSONObject();
+        new CampaignListFragment.CampaignTask().execute(url.toString());
+
+
+
+        return view;
+    }
+
+
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        if (mCampaignList != null) {
+            recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter
+                    (this, mCampaignList));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
+    }
+
+    /** Class to build RecyclerView and View holders. */
+    public static class SimpleItemRecyclerViewAdapter
+            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+
+        private final CampaignListFragment mParent;
+        private final List<Campaign> mValues;
+
+
+        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int campaignId = view.getId();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("campaignid", campaignId);
+                Navigation.findNavController((Activity)view.getContext(), R.id.nav_host_fragment).navigate(R.id.nav_action_campaign_view, bundle);
+
+//                Context context = view.getContext();
+//                Intent intent = new Intent(context, CampaignCharacterActivity.class);
+//                intent.putExtra("campaignID", campaignId);
+//                context.startActivity(intent);
+            }
+        };
+
+        // constructor
+        SimpleItemRecyclerViewAdapter(CampaignListFragment parent,
+                                      List<Campaign> items) {
+            mParent = parent;
+            mValues = items;
+        }
+
+        // Create new views (invoked by the layout manager)
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.campaign_list, parent, false);
+            return new ViewHolder(view);
+        }
+
+        // Replace the contents of a view (invoked by the layout manager)
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            holder.mNameView.setText(mValues.get(position).getCampaignName());
+            holder.mNotesView.setText(mValues.get(position).getGetCampaignDescription());
+
+            holder.itemView.setId(mValues.get(position).getCampaignID());
+            holder.itemView.setOnClickListener(mOnClickListener);
+        }
+
+        // Return the size of campaign list (invoked by the layout manager)
+        @Override
+        public int getItemCount() {
+            return mValues.size();
+        }
+
+        /** Provide a reference to the views for each data item */
+        class ViewHolder extends RecyclerView.ViewHolder {
+            final TextView mNameView;
+            final TextView mNotesView;
+            LinearLayout mainLayout;
+
+            ViewHolder(View view) {
+                super(view);
+                mNameView = view.findViewById(R.id.campaign_name_txt);
+                mNotesView = view.findViewById(R.id.campaign_description_txt);
+                mainLayout = view.findViewById(R.id.mainLayout);
+            }
+        }
+    }
+
+    /** Send get request to server, construct a campaign list for display. */
+    private class CampaignTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                    InputStream content = urlConnection.getInputStream();
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+                } catch (Exception e) {
+                    response = "Unable to download the list of campaigns, Reason: "
+                            + e.getMessage();
+                }
+                finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (s.startsWith("Unable to")) {
+                Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                if (jsonObject.getBoolean("success")) {
+
+                    mCampaignList = Campaign.parseCampaignJson(
+                            jsonObject.getString("names"));
+
+                    if (!mCampaignList.isEmpty()) {
+                        setupRecyclerView(mRecyclerView);
+                    }
+                }
+            } catch (JSONException e) {
+                Toast.makeText(getActivity().getApplicationContext(), "JSON Error: " + e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /** Search campaign by campaign code. If successful, go to join campaign screen and display result. */
+    private class SearchCampaignTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                    InputStream content = urlConnection.getInputStream();
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+                } catch (Exception e) {
+                    response = "Unable to find the campaign, Reason: "
+                            + e.getMessage();
+                }
+                finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (s.startsWith("Unable to")) {
+                Toast.makeText(getContext().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+
+                if (jsonObject.getBoolean("success")) {
+
+                    Campaign campaign = Campaign.parseJoinCampaign(
+                            jsonObject.getString("names"));
+
+
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("campaign", (Serializable) campaign);
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_action_join, bundle);
+
+                }
+
+            } catch (JSONException e) {
+                Toast.makeText(getContext().getApplicationContext(), "Unable to find campaign: Invalid Code",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+}
