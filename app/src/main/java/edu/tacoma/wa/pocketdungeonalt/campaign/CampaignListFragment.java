@@ -54,6 +54,7 @@ public class CampaignListFragment extends Fragment {
 
         final EditText campaign_code = view.findViewById(R.id.campaign_code_input);
 
+
         mRecyclerView = view.findViewById(R.id.recyclerView);
         Button add_button = view.findViewById(R.id.add_button);
         add_button.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +107,7 @@ public class CampaignListFragment extends Fragment {
     }
 
     /** Class to build RecyclerView and View holders. */
-    public static class SimpleItemRecyclerViewAdapter
+    public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final CampaignListFragment mParent;
@@ -117,15 +118,13 @@ public class CampaignListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int campaignId = view.getId();
+                System.out.println(campaignId);
 
-                Bundle bundle = new Bundle();
-                bundle.putInt("campaignid", campaignId);
-                Navigation.findNavController((Activity)view.getContext(), R.id.nav_host_fragment).navigate(R.id.nav_action_campaign_view, bundle);
+                StringBuilder url = new StringBuilder(getString(R.string.search_campaign));
+                url.append(campaignId);
+                mCampaignJSON = new JSONObject();
+                new viewCampaignTask().execute(url.toString());
 
-//                Context context = view.getContext();
-//                Intent intent = new Intent(context, CampaignCharacterActivity.class);
-//                intent.putExtra("campaignID", campaignId);
-//                context.startActivity(intent);
             }
         };
 
@@ -272,11 +271,65 @@ public class CampaignListFragment extends Fragment {
                             jsonObject.getString("names"));
 
 
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_campaigns_to_nav_campaign_join2, bundle);
+                }
+
+            } catch (JSONException e) {
+                Toast.makeText(getContext().getApplicationContext(), "Unable to find campaign: Invalid Code",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /** Search campaign by campaign code. If successful, go to join campaign screen and display result. */
+    private class viewCampaignTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                    InputStream content = urlConnection.getInputStream();
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+                } catch (Exception e) {
+                    response = "Unable to find the campaign, Reason: "
+                            + e.getMessage();
+                }
+                finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (s.startsWith("Unable to")) {
+                Toast.makeText(getContext().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+
+                if (jsonObject.getBoolean("success")) {
+
+                    Campaign campaign = Campaign.parseJoinCampaign(
+                            jsonObject.getString("names"));
+
 
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("campaign", (Serializable) campaign);
-                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_action_join, bundle);
-
+                    bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_action_campaign_view, bundle);
                 }
 
             } catch (JSONException e) {

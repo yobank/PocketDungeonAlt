@@ -1,7 +1,7 @@
 package edu.tacoma.wa.pocketdungeonalt.campaign;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -38,31 +39,19 @@ public class CampaignJoinFragment extends Fragment {
 
     private List<String> mCharacterList;
     private RecyclerView mRecyclerView;
-
     private SharedPreferences mSharedPreferences;
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        Campaign temp = (Campaign) getArguments().getSerializable("campaign");
-//    }
-
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View view = inflater.inflate(R.layout.fragment_campaign_join, container, false);
-
-        getActivity().setContentView(R.layout.fragment_campaign_join);
-
-        Intent intent = getActivity().getIntent();
-        Bundle bundle = intent.getExtras();
-        Campaign campaign = (Campaign) getArguments().getSerializable("campaign");
+        final View view = inflater.inflate(R.layout.fragment_campaign_join, container, false);
+        final Campaign campaign = (Campaign) getArguments().getSerializable("CAMPAIGN");
 
         mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS),
                 Context.MODE_PRIVATE);
         mSharedPreferences.edit()
                 .putInt(getString(R.string.CAMPAIGNID), campaign.getCampaignID())
-                .commit();
+                .apply();
 
         String campaignId = "Code: " + campaign.getCampaignID();
         String campaignName = "Name: " + campaign.getCampaignName();
@@ -80,18 +69,17 @@ public class CampaignJoinFragment extends Fragment {
         charButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
+                Navigation.findNavController((Activity)view.getContext(), R.id.nav_host_fragment).navigate(R.id.action_nav_campaign_join_to_nav_character_selector, bundle);
 
-                //create character select popup
-
-//                Intent i = new Intent(CampaignJoinActivity.this, CharacterListActivity.class);
-//                startActivity(i);
             }
         });
 
         StringBuilder url = new StringBuilder(getString(R.string.search_characters));
         url.append(campaign.getCampaignID());
         Log.i("url", url.toString());
-        new CampaignJoinFragment.CharacterTask().execute(url.toString());
+        new otherPlayersTask().execute(url.toString());
 
         mRecyclerView = view.findViewById(R.id.player_list);
         assert mRecyclerView != null;
@@ -99,6 +87,8 @@ public class CampaignJoinFragment extends Fragment {
 
         return view;
     }
+
+
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         if (mCharacterList != null) {
@@ -141,12 +131,12 @@ public class CampaignJoinFragment extends Fragment {
 
             ViewHolder(View view) {
                 super(view);
-                mNameView = view.findViewById(R.id.character_name_input);
+                mNameView = view.findViewById(R.id.character_name);
             }
         }
     }
 
-    private class CharacterTask extends AsyncTask<String, Void, String> {
+    private class otherPlayersTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
             String response = "";

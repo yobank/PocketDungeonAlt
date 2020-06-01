@@ -18,11 +18,13 @@
         android:label="@string/menu_campaign_list"
         tools:layout="@layout/fragment_campaign_list" >
         <action
-            android:id="@+id/nav_action_join"
-            app:destination="@id/nav_campaign_join" />
-        <action
             android:id="@+id/nav_action_campaign_view"
             app:destination="@id/nav_campaign_view" />
+        <action
+            android:id="@+id/action_nav_campaigns_to_nav_campaign_join2"
+            app:destination="@id/nav_campaign_join"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -51,11 +53,33 @@
         android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignJoinFragment"
         android:label="CampaignJoinFragment"
         tools:layout="@layout/fragment_campaign_join">
-
+        <argument
+            android:name="CAMPAIGN"
+            app:argType="edu.tacoma.wa.pocketdungeonalt.model.Campaign" />
+        <action
+            android:id="@+id/action_nav_campaign_join_to_nav_character_selector"
+            app:destination="@id/nav_character_selector" />
+        <argument
+            android:name="CHARACTER"
+            app:argType="edu.tacoma.wa.pocketdungeonalt.model.Character" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_campaign_view"
         android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignViewFragment"
         android:label="CampaignViewFragment"
-        tools:layout="@layout/fragment_campaign_view"/>
+        tools:layout="@layout/fragment_campaign_view">
+        <argument
+            android:name="CAMPAIGN"
+            app:argType="edu.tacoma.wa.pocketdungeonalt.model.Campaign" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_character_selector"
+        android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterSelectorFragment"
+        android:label="CharacterSelectorFragment"
+        tools:layout="@layout/fragment_character_selector">
+        <argument
+            android:name="CAMPAIGN"
+            app:argType="edu.tacoma.wa.pocketdungeonalt.model.Campaign" />
+    </fragment>
 </navigation>

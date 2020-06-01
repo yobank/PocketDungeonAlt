@@ -278,16 +278,19 @@
         app:layout_constraintTop_toBottomOf="@+id/hit_dice_label" />
 
     <!-- current hp -->
-    <TextView
-        android:id="@+id/current_hp_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Current HP"
-        app:layout_constraintEnd_toStartOf="@+id/current_hp_input"
-        app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
 
-    <EditText
+        <TextView
+            android:id="@+id/current_hp_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Current HP"
+            app:layout_constraintEnd_toStartOf="@+id/current_hp_input"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/ac_input"
+            app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
+
+        <EditText
         android:id="@+id/current_hp_input"
         android:layout_width="31dp"
         android:layout_height="49dp"
@@ -299,16 +302,19 @@
         app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
 
     <!-- max hp -->
-    <TextView
-        android:id="@+id/max_hp_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Max HP"
-        app:layout_constraintEnd_toStartOf="@+id/max_hp_input"
-        app:layout_constraintTop_toBottomOf="@+id/current_hp_input" />
 
-    <EditText
+        <TextView
+            android:id="@+id/max_hp_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Max HP"
+            app:layout_constraintEnd_toStartOf="@+id/max_hp_input"
+            app:layout_constraintHorizontal_bias="0.973"
+            app:layout_constraintStart_toEndOf="@+id/proficiency_input"
+            app:layout_constraintTop_toBottomOf="@+id/current_hp_input" />
+
+        <EditText
     android:id="@+id/max_hp_input"
     android:layout_width="31dp"
     android:layout_height="49dp"
