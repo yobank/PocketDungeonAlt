@@ -3,7 +3,6 @@ package edu.tacoma.wa.pocketdungeonalt.character;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,12 +26,9 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Objects;
 
-import edu.tacoma.wa.pocketdungeonalt.MainActivity;
 import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 import edu.tacoma.wa.pocketdungeonalt.model.User;
@@ -112,7 +108,6 @@ public class CharacterAddFragment extends Fragment {
         button_other_proficiencies = view.findViewById(R.id.otherProf_button);
         add_button = view.findViewById(R.id.add_button);
         cancel_button = view.findViewById(R.id.cancell_button);
-
 
 
         /** Set up add button listener.
@@ -237,6 +232,7 @@ public class CharacterAddFragment extends Fragment {
         });
         return view;
     }
+
 
     private void showBackgroundDialog(Context c) {
         final EditText editText = new EditText(c);

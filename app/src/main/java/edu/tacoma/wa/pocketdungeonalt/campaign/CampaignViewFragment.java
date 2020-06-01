@@ -2,7 +2,6 @@ package edu.tacoma.wa.pocketdungeonalt.campaign;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,20 +22,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
-import edu.tacoma.wa.pocketdungeonalt.model.User;
 
 public class CampaignViewFragment extends Fragment {
 
@@ -50,14 +47,18 @@ public class CampaignViewFragment extends Fragment {
     private TextView campaign_code;
     private String campaign_notes;
     private Button campaign_notes_button;
+    private Button edit_button;
+    private Button share_button;
     private JSONObject mCampaignJSON;
+
+    private Campaign campaign;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_campaign_view, container, false);
 
-        Campaign campaign = (Campaign) getArguments().getSerializable("CAMPAIGN");
+        campaign = (Campaign) getArguments().getSerializable("CAMPAIGN");
 
         System.out.println(campaign.getCampaignID());
 
@@ -67,6 +68,8 @@ public class CampaignViewFragment extends Fragment {
         campaign_code = view.findViewById(R.id.code_label);
         campaign_description = view.findViewById(R.id.campaign_description_txt);
         campaign_notes_button  = view.findViewById(R.id.notes_button);
+        edit_button = view.findViewById(R.id.edit_button);
+        share_button = view.findViewById(R.id.share_button);
 
         String temp = "Campaign Code: " + campaign.getCampaignID();
         System.out.println(temp);
@@ -81,6 +84,30 @@ public class CampaignViewFragment extends Fragment {
                 showNotesDialog(getContext());
             }
         });
+
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_campaign_view_to_campaignEditFragment, bundle);
+            }
+        });
+
+        share_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Join me in " + campaign.getCampaignName() + " on Pocket Dungeon with code " + campaign.getCampaignID() + "!");
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+            }
+        });
+
+
 
 
         StringBuilder url = new StringBuilder(getString(R.string.search_characters));
