@@ -22,15 +22,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/character_name_input"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Character Name"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_label" />
+        <TextView
+            android:id="@+id/character_name_input"
+            android:layout_width="198dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_label" />
 
     <!-- character level -->
     <TextView
@@ -42,19 +39,18 @@
             app:layout_constraintStart_toStartOf="@+id/character_level_input"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/character_level_input"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="0"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/character_name_input"
-        app:layout_constraintTop_toBottomOf="@+id/level_label" />
+        <!-- character class -->
+        <TextView
+            android:id="@+id/character_level_input"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/race_label"
+            app:layout_constraintTop_toBottomOf="@+id/level_label" />
 
-    <!-- character class -->
-    <TextView
+        <TextView
         android:id="@+id/class_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -278,49 +274,53 @@
         app:layout_constraintTop_toBottomOf="@+id/hit_dice_label" />
 
     <!-- current hp -->
-    <TextView
-        android:id="@+id/current_hp_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Current HP"
-        app:layout_constraintEnd_toStartOf="@+id/current_hp_input"
-        app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
+        <TextView
+            android:id="@+id/current_hp_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Current HP"
+            app:layout_constraintEnd_toStartOf="@+id/current_hp_input"
+            app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
 
-    <TextView
-        android:id="@+id/current_hp_input"
-        android:layout_width="31dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="0"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/hit_dice_input"
-        app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
+        <!-- max hp -->
+        <TextView
+            android:id="@+id/current_hp_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="@+id/hit_dice_input"
+            app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
 
-    <!-- max hp -->
-    <TextView
-        android:id="@+id/max_hp_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Max HP"
-        app:layout_constraintEnd_toStartOf="@+id/max_hp_input"
-        app:layout_constraintTop_toBottomOf="@+id/current_hp_input" />
+        <TextView
+            android:id="@+id/max_hp_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Max HP"
+            app:layout_constraintEnd_toStartOf="@+id/max_hp_input"
+            app:layout_constraintTop_toBottomOf="@+id/current_hp_input" />
 
-    <TextView
-    android:id="@+id/max_hp_input"
-    android:layout_width="31dp"
-    android:layout_height="49dp"
-    android:layout_marginTop="8dp"
-    android:ems="10"
-    android:hint="0"
-    android:inputType="number"
-    app:layout_constraintEnd_toEndOf="@+id/hit_dice_input"
-    app:layout_constraintTop_toBottomOf="@+id/current_hp_input" />
+        <!-- armor class -->
+        <TextView
+            android:id="@+id/max_hp_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="@+id/hit_dice_input"
+            app:layout_constraintTop_toBottomOf="@+id/current_hp_input" />
 
-    <!-- armor class -->
-    <TextView
+        <TextView
         android:id="@+id/ac_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -329,19 +329,21 @@
         app:layout_constraintStart_toEndOf="@+id/background_button"
         app:layout_constraintTop_toBottomOf="@+id/speed_input" />
 
-    <TextView
-        android:id="@+id/ac_input"
-        android:layout_width="31dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="0"
-        android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/ac_label"
-        app:layout_constraintTop_toBottomOf="@+id/speed_input" />
+        <!-- proficiency -->
+        <TextView
+            android:id="@+id/ac_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/ac_label"
+            app:layout_constraintTop_toBottomOf="@+id/speed_input" />
 
-    <!-- proficiency -->
-    <TextView
+        <TextView
         android:id="@+id/proficiency_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -352,30 +354,23 @@
         app:layout_constraintStart_toEndOf="@+id/background_button"
         app:layout_constraintTop_toBottomOf="@+id/ac_input" />
 
-    <TextView
-        android:id="@+id/proficiency_input"
-        android:layout_width="31dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="0"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/ac_input"
-        app:layout_constraintLeft_toRightOf="@id/proficiency_label"
-        app:layout_constraintTop_toBottomOf="@+id/ac_input" />
 
-
-
-
-
-
-
-
-
-    <!-- stats -->
+        <!-- stats -->
 
     <!-- str -->
-    <TextView
+        <TextView
+            android:id="@+id/proficiency_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="@+id/ac_input"
+            app:layout_constraintLeft_toRightOf="@id/proficiency_label"
+            app:layout_constraintTop_toBottomOf="@+id/ac_input" />
+
+        <TextView
         android:id="@+id/str_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -384,20 +379,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/info_button" />
 
-    <TextView
-        android:id="@+id/str_input"
-        android:layout_width="31dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="0"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+        <TextView
+            android:id="@+id/str_input"
+            android:layout_width="31dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_button" />
 
-    <TextView
+        <TextView
         android:id="@+id/str_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -418,13 +413,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/str_label" />
 
-    <TextView
+        <TextView
             android:id="@+id/dex_input"
             android:layout_width="31dp"
             android:layout_height="49dp"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="0"
             android:inputType="number"
@@ -452,13 +447,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dex_label" />
 
-    <TextView
+        <TextView
             android:id="@+id/con_input"
             android:layout_width="31dp"
             android:layout_height="49dp"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="0"
             android:inputType="number"
@@ -486,13 +481,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/con_label" />
 
-    <TextView
+        <TextView
             android:id="@+id/int_input"
             android:layout_width="31dp"
             android:layout_height="49dp"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="0"
             android:inputType="number"
@@ -520,13 +515,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/int_label" />
 
-    <TextView
+        <TextView
             android:id="@+id/wis_input"
             android:layout_width="31dp"
             android:layout_height="49dp"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="0"
             android:inputType="number"
@@ -554,13 +549,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wis_label" />
 
-    <TextView
+        <TextView
             android:id="@+id/cha_input"
             android:layout_width="31dp"
             android:layout_height="49dp"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="0"
             android:inputType="number"

@@ -1,8 +1,6 @@
 package edu.tacoma.wa.pocketdungeonalt.character;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,27 +14,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
 import edu.tacoma.wa.pocketdungeonalt.R;
-import edu.tacoma.wa.pocketdungeonalt.character.CharacterListFragment;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 
 public class CharacterListFragment extends Fragment {
@@ -90,7 +84,7 @@ public class CharacterListFragment extends Fragment {
     }
 
     /** Class to build RecyclerView and View holders. */
-    public static class SimpleItemRecyclerViewAdapter
+    public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final CharacterListFragment mParent;
@@ -101,7 +95,20 @@ public class CharacterListFragment extends Fragment {
             public void onClick(View view) {
                 Character item = (Character) view.getTag();
 
-                Navigation.findNavController((Activity)view.getContext(), R.id.nav_host_fragment).navigate(R.id.nav_character_add);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CHARACTER", (Serializable) item);
+                // just nav and pass item?
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_characters_to_nav_character_view, bundle);
+
+
+//                int campaignId = view.getId();
+//                System.out.println(campaignId);
+//
+//                StringBuilder url = new StringBuilder(getString(R.string.search_characters));
+//                url.append(campaignId);
+//                mCharacterJSON = new JSONObject();
+//                new CampaignListFragment.viewCharacterTask().execute(url.toString());
+
 
                 // open character view
 
@@ -131,6 +138,9 @@ public class CharacterListFragment extends Fragment {
             holder.mNameView.setText(mValues.get(position).getCharacterName());
             holder.mClassView.setText(mValues.get(position).getCharacterClass());
             holder.mLevelView.setText("" + mValues.get(position).getCharacterLevel());
+
+            holder.itemView.setTag(mValues.get(position));
+            holder.itemView.setOnClickListener(mOnClickListener);
         }
 
         /** Return the size of character list (invoked by the layout manager) */

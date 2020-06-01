@@ -41,7 +41,11 @@
         android:id="@+id/nav_characters"
         android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterListFragment"
         android:label="CharacterListFragment"
-        tools:layout="@layout/fragment_character_list"/>
+        tools:layout="@layout/fragment_character_list">
+        <action
+            android:id="@+id/action_nav_characters_to_nav_character_view"
+            app:destination="@id/nav_character_view" />
+    </fragment>
     <fragment
         android:id="@+id/nav_character_add"
         android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterAddFragment"
@@ -72,12 +76,36 @@
         <argument
             android:name="CAMPAIGN"
             app:argType="edu.tacoma.wa.pocketdungeonalt.model.Campaign" />
+        <action
+            android:id="@+id/action_nav_campaign_view_to_campaignEditFragment"
+            app:destination="@id/nav_campaign_edit" />
     </fragment>
     <fragment
         android:id="@+id/nav_character_selector"
         android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterSelectorFragment"
         android:label="CharacterSelectorFragment"
         tools:layout="@layout/fragment_character_selector">
+        <argument
+            android:name="CAMPAIGN"
+            app:argType="edu.tacoma.wa.pocketdungeonalt.model.Campaign" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_character_view"
+        android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterViewFragment"
+        android:label="CharacterViewFragment"
+        tools:layout="@layout/fragment_character_view">
+        <argument
+            android:name="CHARACTER"
+            app:argType="edu.tacoma.wa.pocketdungeonalt.model.Character" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_campaign_edit"
+        android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignEditFragment"
+        android:label="CampaignEditFragment"
+        tools:layout="@layout/fragment_campaign_edit">
+        <action
+            android:id="@+id/action_campaignEditFragment_to_nav_campaign_view"
+            app:destination="@id/nav_campaign_view" />
         <argument
             android:name="CAMPAIGN"
             app:argType="edu.tacoma.wa.pocketdungeonalt.model.Campaign" />

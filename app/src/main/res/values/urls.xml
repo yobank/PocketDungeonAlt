@@ -6,11 +6,13 @@
     <string name="add_character">https://pocket-dungeon-backend.herokuapp.com/characters</string>
     <string name="get_characters">https://pocket-dungeon-backend.herokuapp.com/characters?memberid=</string>
     <string name="search_characters">https://pocket-dungeon-backend.herokuapp.com/characters/search?campaignid=</string>
+    <string name="update_character">https://pocket-dungeon-backend.herokuapp.com/characters/update</string>
 
     <string name="add_campaign">https://pocket-dungeon-backend.herokuapp.com/campaigns</string>
     <string name="get_campaigns">https://pocket-dungeon-backend.herokuapp.com/campaigns?memberid=</string>
     <string name="search_campaign">https://pocket-dungeon-backend.herokuapp.com/campaigns/search?campaignid=</string>
     <string name="join_campaign">https://pocket-dungeon-backend.herokuapp.com/campaigns/join</string>
+    <string name="update_campaign">https://pocket-dungeon-backend.herokuapp.com/campaigns/update</string>
 
     <string name="dnd_api">https://www.dnd5eapi.co/api/</string>
 
