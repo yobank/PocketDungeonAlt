@@ -74,6 +74,7 @@ public class CampaignEditFragment extends Fragment {
         /** Set up add button listener.
          * Get campaign name and notes from user entry. */
         Button add_button = view.findViewById(R.id.add_button);
+        //test
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
