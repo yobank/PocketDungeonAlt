@@ -97,26 +97,8 @@ public class CharacterListFragment extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("CHARACTER", (Serializable) item);
-                // just nav and pass item?
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_characters_to_nav_character_view, bundle);
 
-
-//                int campaignId = view.getId();
-//                System.out.println(campaignId);
-//
-//                StringBuilder url = new StringBuilder(getString(R.string.search_characters));
-//                url.append(campaignId);
-//                mCharacterJSON = new JSONObject();
-//                new CampaignListFragment.viewCharacterTask().execute(url.toString());
-
-
-                // open character view
-
-//                Context context = view.getContext();
-//                Intent intent = new Intent(context, CharacterDetailFragment.class);
-//                intent.putExtra(CharacterDetailFragment.ARG_ITEM_ID, item);
-//
-//                context.startActivity(intent);
             }
         };
 
@@ -136,8 +118,8 @@ public class CharacterListFragment extends Fragment {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mNameView.setText(mValues.get(position).getCharacterName());
-            holder.mClassView.setText(mValues.get(position).getCharacterClass());
-            holder.mLevelView.setText("" + mValues.get(position).getCharacterLevel());
+            holder.mClassView.setText("Class: " + mValues.get(position).getCharacterClass());
+            holder.mLevelView.setText("Level: " + mValues.get(position).getCharacterLevel());
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);

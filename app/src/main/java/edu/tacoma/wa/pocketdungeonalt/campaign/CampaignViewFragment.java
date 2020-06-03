@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ import edu.tacoma.wa.pocketdungeonalt.model.Character;
 
 public class CampaignViewFragment extends Fragment {
 
-    private List<String> mCharacterList;
+    private List<Character> mCharacterList;
     private RecyclerView mRecyclerView;
     private SharedPreferences mSharedPreferences;
 
@@ -149,31 +150,51 @@ public class CampaignViewFragment extends Fragment {
         if (mCharacterList != null) {
             recyclerView.setAdapter(new CampaignViewFragment.SimpleItemRecyclerViewAdapter(this, mCharacterList));
         }
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    public static class SimpleItemRecyclerViewAdapter
+    public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<CampaignViewFragment.SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final CampaignViewFragment mParentActivity;
-        private final List<String> mValues;
+        private final List<Character> mValues;
 
-        SimpleItemRecyclerViewAdapter(CampaignViewFragment parent,
-                                      List<String> items) {
+        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("bungus");
+                Character item = (Character) view.getTag();
+                System.out.println(item.getCharacterName());
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CHARACTER", (Serializable) item);
+                // just nav and pass item?
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_campaign_view_to_nav_character_view, bundle);
+
+
+            }
+        };
+
+                SimpleItemRecyclerViewAdapter(CampaignViewFragment parent,
+                                      List<Character> items) {
             mValues = items;
             mParentActivity = parent;
         }
 
         @Override
-        public CampaignViewFragment.SimpleItemRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.campaign_character_list, parent, false);
-            return new CampaignViewFragment.SimpleItemRecyclerViewAdapter.ViewHolder(view);
+            return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final CampaignViewFragment.SimpleItemRecyclerViewAdapter.ViewHolder holder, int position) {
-            holder.mNameView.setText(mValues.get(position));
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            holder.mNameView.setText(mValues.get(position).getCharacterName());
+            holder.mClassView.setText("Class: " + mValues.get(position).getCharacterClass());
+            holder.mLevelView.setText("Level: " + mValues.get(position).getCharacterLevel());
+            holder.itemView.setTag(mValues.get(position));
+            holder.itemView.setOnClickListener(mOnClickListener);
         }
 
         @Override
@@ -183,10 +204,18 @@ public class CampaignViewFragment extends Fragment {
 
         class ViewHolder extends RecyclerView.ViewHolder {
             final TextView mNameView;
+            final TextView mClassView;
+            final TextView mLevelView;
+            LinearLayout mainLayout;
+
 
             ViewHolder(View view) {
                 super(view);
-                mNameView = view.findViewById(R.id.character_name);
+                mNameView = view.findViewById(R.id.character_name_txt);
+                mClassView = view.findViewById(R.id.character_class_txt);
+                mLevelView = view.findViewById(R.id.character_level_txt);
+                mainLayout = view.findViewById(R.id.mainLayout);
+
             }
         }
     }
@@ -234,7 +263,7 @@ public class CampaignViewFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(s);
 
                 if (jsonObject.getBoolean("success")) {
-                    mCharacterList = Character.parseCharacterList(
+                    mCharacterList = Character.parseCharacterJSON(
                             jsonObject.getString("names"));
 
                     if (!mCharacterList.isEmpty()) {
