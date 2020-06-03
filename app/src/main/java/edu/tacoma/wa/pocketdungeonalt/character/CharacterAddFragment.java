@@ -241,7 +241,7 @@ public class CharacterAddFragment extends Fragment {
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // ask if the user is sure
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_characters);
             }
         });
         return view;

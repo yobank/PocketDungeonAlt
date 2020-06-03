@@ -42,6 +42,8 @@ public class CampaignEditFragment extends Fragment {
     private String campaign_notes;
     private Button campaign_notes_button;
     public Button add_button;
+    public Button cancel_button;
+
 
     private SharedPreferences mSharedPreferences;
     private JSONObject mCampaignJSON;
@@ -56,6 +58,8 @@ public class CampaignEditFragment extends Fragment {
         campaign_name = view.findViewById(R.id.campaign_name_input);
         campaign_description = view.findViewById(R.id.campaign_description_input);
         add_button = view.findViewById(R.id.add_button);
+        cancel_button = view.findViewById(R.id.cancell_button);
+
         campaign_notes_button = view.findViewById(R.id.notes_button);
 
 
@@ -94,6 +98,13 @@ public class CampaignEditFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_campaigns);
             }
         });
 
