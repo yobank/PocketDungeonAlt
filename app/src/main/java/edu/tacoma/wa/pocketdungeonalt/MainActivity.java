@@ -1,13 +1,16 @@
 package edu.tacoma.wa.pocketdungeonalt;
 
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 import android.view.Menu;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,6 +18,11 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.List;
+
+import edu.tacoma.wa.pocketdungeonalt.authenticate.SignInActivity;
+import edu.tacoma.wa.pocketdungeonalt.compendium.CompendiumWebViewFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_campaigns, R.id.nav_characters)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_campaigns, R.id.nav_characters, R.id.nav_compendium)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -55,5 +62,23 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    /** When user clicks on sign out button, go to sign in screen. */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            SharedPreferences sharedPreferences =
+                    getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+            sharedPreferences.edit().putBoolean(getString(R.string.LOGGEDIN), false)
+                    .commit();
+            Intent i = new Intent(this, SignInActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 }

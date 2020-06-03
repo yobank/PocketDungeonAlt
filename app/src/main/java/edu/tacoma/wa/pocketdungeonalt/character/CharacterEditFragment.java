@@ -30,20 +30,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.tacoma.wa.pocketdungeonalt.R;
+import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 import edu.tacoma.wa.pocketdungeonalt.model.User;
 
-public class CharacterAddFragment extends Fragment {
+public class CharacterEditFragment extends Fragment {
+
+    private Character character;
 
     private EditText character_name;
     private EditText character_class;
     private EditText character_race;
     private EditText character_level;
     private Button button_background;
-    private String background = "no background";
+    private String background;
     private EditText alignment;
     private Button button_info;
-    private String info = "no info";
+    private String info;
     private EditText experience;
     private EditText inspiration;
     private EditText proficiency;
@@ -54,7 +57,7 @@ public class CharacterAddFragment extends Fragment {
     private EditText currentHP;
     private EditText hit_dice;
     private Button button_skills;
-    private String skills = "no skills";
+    private String skills;
     private EditText strength;
     private EditText dexterity;
     private EditText constitution;
@@ -63,13 +66,12 @@ public class CharacterAddFragment extends Fragment {
     private EditText charisma;
     private EditText perception;
     private Button button_attacks;
-    private String attacks = "no attacks";
+    private String attacks;
     private Button button_equipment;
-    private String equipment = "no equipment";
+    private String equipment;
     private Button button_other_proficiencies;
-    private String other_proficiencies = "no other proficiencies";
+    private String other_proficiencies;
     private Button add_button;
-    private Button cancel_button;
 
     private SharedPreferences mSharedPreferences;
     private JSONObject mCharacterJSON;
@@ -77,37 +79,80 @@ public class CharacterAddFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View view = inflater.inflate(R.layout.fragment_character_add, container, false);
+        View view = inflater.inflate(R.layout.fragment_character_edit, container, false);
+
+        character = (Character) getArguments().getSerializable("CHARACTER");
 
         character_name = view.findViewById(R.id.character_name_input);
+        character_name.setText(character.getCharacterName());
         character_class = view.findViewById(R.id.character_class_input);
+        character_class.setText(character.getCharacterClass());
         character_race = view.findViewById(R.id.character_race_input);
+        character_race.setText(character.getCharacterRace());
         character_level = view.findViewById(R.id.character_level_input);
+        character_level.setText(String.valueOf(character.getCharacterLevel()));
         button_background = view.findViewById(R.id.background_button);
+        background = character.getCharacterBackground();
         alignment  = view.findViewById(R.id.character_alignment_input);
+        alignment.setText(character.getCharacterAlignment());
         button_info = view.findViewById(R.id.info_button);
+        info = character.getCharacterInfo();
         experience = view.findViewById(R.id.character_experience_input);
+        experience.setText(String.valueOf(character.getExperience()));
         inspiration = view.findViewById(R.id.character_inspiration_input);
+        inspiration.setText(String.valueOf(character.getInspiration()));
         proficiency = view.findViewById(R.id.proficiency_input);
+        proficiency.setText(String.valueOf(character.getProficiency()));
         armor_class = view.findViewById(R.id.ac_input);
+        armor_class.setText(String.valueOf(character.getArmorClass()));
         initiative = view.findViewById(R.id.character_initiative_input);
+        initiative.setText(String.valueOf(character.getInitiative()));
         speed = view.findViewById(R.id.speed_input);
+        speed.setText(character.getSpeed());
         maxHP = view.findViewById(R.id.max_hp_input);
+        maxHP.setText(String.valueOf(character.getMaxHP()));
         currentHP = view.findViewById(R.id.current_hp_input);
+        currentHP.setText(String.valueOf(character.getCurrentHP()));
         hit_dice = view.findViewById(R.id.hit_dice_input);
+        hit_dice.setText(character.getHitDice());
         button_skills = view.findViewById(R.id.skills_button);
+        skills = character.getSkills();
         strength = view.findViewById(R.id.str_input);
+        strength.setText(String.valueOf(character.getStrength()));
         dexterity = view.findViewById(R.id.dex_input);
+        dexterity.setText(String.valueOf(character.getDexterity()));
         constitution  = view.findViewById(R.id.con_input);
+        constitution.setText(String.valueOf(character.getConstitution()));
         intelligence = view.findViewById(R.id.int_input);
+        intelligence.setText(String.valueOf(character.getIntelligence()));
         wisdom = view.findViewById(R.id.wis_input);
+        wisdom.setText(String.valueOf(character.getWisdom()));
         charisma = view.findViewById(R.id.cha_input);
+        charisma.setText(String.valueOf(character.getCharisma()));
         perception = view.findViewById(R.id.character_perception_input);
+        perception.setText(String.valueOf(character.getPerception()));
         button_attacks = view.findViewById(R.id.attacks_button);
+        attacks = character.getAttacks();
         button_equipment = view.findViewById(R.id.equipment_button);
+        equipment = character.getEquipment();
         button_other_proficiencies = view.findViewById(R.id.otherProf_button);
+        other_proficiencies = character.getOtherProficiencies();
+
         add_button = view.findViewById(R.id.add_button);
-        cancel_button = view.findViewById(R.id.cancell_button);
+
+        TextView strMod = view.findViewById(R.id.str_mod);
+        TextView dexMod = view.findViewById(R.id.dex_mod);
+        TextView conMod = view.findViewById(R.id.con_mod);
+        TextView intMod = view.findViewById(R.id.int_mod);
+        TextView wisMod = view.findViewById(R.id.wis_mod);
+        TextView chaMod = view.findViewById(R.id.cha_mod);
+
+        strMod.setText(calcMod(Integer.valueOf(strength.getText().toString())));
+        dexMod.setText(calcMod(Integer.valueOf(dexterity.getText().toString())));
+        conMod.setText(calcMod(Integer.valueOf(constitution.getText().toString())));
+        intMod.setText(calcMod(Integer.valueOf(intelligence.getText().toString())));
+        wisMod.setText(calcMod(Integer.valueOf(wisdom.getText().toString())));
+        chaMod.setText(calcMod(Integer.valueOf(charisma.getText().toString())));
 
 
         /** Set up add button listener.
@@ -115,8 +160,6 @@ public class CharacterAddFragment extends Fragment {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // make default values or prevent creation unless values are filled in
 
                 String characterName = character_name.getText().toString();
                 String characterClass = character_class.getText().toString();
@@ -154,10 +197,12 @@ public class CharacterAddFragment extends Fragment {
                 if (!charisma.getText().toString().matches("")) { cha = Integer.parseInt(charisma.getText().toString()); }
                 int prcp = 0;
                 if (!perception.getText().toString().matches("")) { prcp = Integer.parseInt(perception.getText().toString()); }
+                System.out.println("1");
+
                 mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
                 int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
 
-                StringBuilder url = new StringBuilder(getString(R.string.add_character));
+                StringBuilder url = new StringBuilder(getString(R.string.update_character));
                 mCharacterJSON = new JSONObject();
                 try {
                     mCharacterJSON.put(Character.CHARACTERNAME, characterName);
@@ -187,8 +232,8 @@ public class CharacterAddFragment extends Fragment {
                     mCharacterJSON.put(Character.ATTACKS, attacks);
                     mCharacterJSON.put(Character.EQUIPMENT, equipment);
                     mCharacterJSON.put(Character.OTHERPROFICIENCIES, other_proficiencies);
-                    mCharacterJSON.put(User.ID, userID);
-                    new CharacterAddFragment.AddCharacterTask().execute(url.toString());
+                    mCharacterJSON.put(Character.CHARACTERID, character.getCharacterID());
+                    new CharacterEditFragment.AddCharacterTask().execute(url.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -238,13 +283,19 @@ public class CharacterAddFragment extends Fragment {
             }
         });
 
-        cancel_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // ask if the user is sure
-            }
-        });
         return view;
+    }
+
+    private String calcMod(double val) {
+        double vall = (val - 10) / 2;
+        if (vall < 0) {
+            val = Math.floor(vall);
+            return String.valueOf((int)val);
+        }
+        else {
+            val = Math.ceil(vall);
+            return "+" + String.valueOf((int)val);
+        }
     }
 
 
@@ -369,7 +420,7 @@ public class CharacterAddFragment extends Fragment {
                 try {
                     URL urlObject = new URL(url);
                     urlConnection = (HttpURLConnection) urlObject.openConnection();
-                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setRequestMethod("PUT");
                     urlConnection.setRequestProperty("Content-Type", "application/json");
                     urlConnection.setDoOutput(true);
                     OutputStreamWriter wr =
@@ -378,6 +429,8 @@ public class CharacterAddFragment extends Fragment {
                     Log.i("Add_Character", mCharacterJSON.toString());
 
                     wr.write(mCharacterJSON.toString());
+                    System.out.println("3");
+
                     wr.flush();
                     wr.close();
                     InputStream content = urlConnection.getInputStream();
@@ -388,7 +441,7 @@ public class CharacterAddFragment extends Fragment {
                     }
 
                 } catch (Exception e) {
-                    response = "Unable to add the new character, Reason: "
+                    response = "Unable to update the character, Reason: "
                             + e.getMessage();
                 } finally {
                     if (urlConnection != null)
@@ -406,6 +459,7 @@ public class CharacterAddFragment extends Fragment {
             }
             try {
                 JSONObject jsonObject = new JSONObject(s);
+
 
                 // For Debugging
                 Log.i("Add_character", jsonObject.toString());
@@ -428,63 +482,6 @@ public class CharacterAddFragment extends Fragment {
                                 + e.getMessage()
                         , Toast.LENGTH_LONG).show();
                 Log.e("Add_Character", e.getMessage());
-            }
-        }
-    }
-
-    /** Search character by character code. If successful, go to join character screen and display result. */
-    private class SearchCharacterTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-            String response = "";
-            HttpURLConnection urlConnection = null;
-            for (String url : urls) {
-                try {
-                    URL urlObject = new URL(url);
-                    urlConnection = (HttpURLConnection) urlObject.openConnection();
-
-                    InputStream content = urlConnection.getInputStream();
-                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
-                    while ((s = buffer.readLine()) != null) {
-                        response += s;
-                    }
-                } catch (Exception e) {
-                    response = "Unable to find the character, Reason: "
-                            + e.getMessage();
-                }
-                finally {
-                    if (urlConnection != null)
-                        urlConnection.disconnect();
-                }
-            }
-            return response;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            if (s.startsWith("Unable to")) {
-                Toast.makeText(getContext().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            try {
-                JSONObject jsonObject = new JSONObject(s);
-
-                if (jsonObject.getBoolean("success")) {
-
-//                    Character character = Character.parseJoinCharacter(
-//                            jsonObject.getString("names"));
-//
-//                    //Intent intent = new Intent(CampaignAddActivity.this, CampaignJoinActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
-                    //intent.putExtras(bundle);
-                    //startActivity(intent);
-                }
-
-            } catch (JSONException e) {
-                Toast.makeText(getContext().getApplicationContext(), "Unable to find campaign: Invalid Code",
-                        Toast.LENGTH_SHORT).show();
             }
         }
     }

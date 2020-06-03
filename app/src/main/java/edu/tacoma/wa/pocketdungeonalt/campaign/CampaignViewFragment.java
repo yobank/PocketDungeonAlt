@@ -60,7 +60,11 @@ public class CampaignViewFragment extends Fragment {
 
         campaign = (Campaign) getArguments().getSerializable("CAMPAIGN");
 
-        System.out.println(campaign.getCampaignID());
+        mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        final int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
+
+
+        System.out.println("holal: " + campaign.getCreatorID());
 
         int campaignid = getArguments().getInt("campaignid");
 
@@ -88,9 +92,15 @@ public class CampaignViewFragment extends Fragment {
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_campaign_view_to_campaignEditFragment, bundle);
+                if (campaign.getCreatorID() == userID) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_campaign_view_to_campaignEditFragment, bundle);
+                }
+                else {
+                    Toast.makeText(getContext().getApplicationContext(), "Only the owner of this campaign may edit it.",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

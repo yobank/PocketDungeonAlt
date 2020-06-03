@@ -74,7 +74,6 @@ public class CampaignEditFragment extends Fragment {
         /** Set up add button listener.
          * Get campaign name and notes from user entry. */
         Button add_button = view.findViewById(R.id.add_button);
-        //test
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +152,7 @@ public class CampaignEditFragment extends Fragment {
                     }
 
                 } catch (Exception e) {
-                    response = "Unable to update the new campaign, Reason: "
+                    response = "Unable to update the campaign, Reason: "
                             + e.getMessage();
                 } finally {
                     if (urlConnection != null)
@@ -165,7 +164,7 @@ public class CampaignEditFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            if (s.startsWith("Unable to update the new campaign")) {
+            if (s.startsWith("Unable to update the campaign")) {
                 Toast.makeText(getContext().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 return;
             }
