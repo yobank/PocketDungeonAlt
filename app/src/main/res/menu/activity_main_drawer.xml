@@ -2,19 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
-        <item
             android:id="@+id/nav_campaigns"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_campaign"
             android:title="Campaigns" />
         <item
             android:id="@+id/nav_characters"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_character"
             android:title="Characters" />
+        <item
+            android:id="@+id/nav_compendium"
+            android:icon="@drawable/ic_compendium"
+            android:title="Compendium" />
     </group>
 </menu>

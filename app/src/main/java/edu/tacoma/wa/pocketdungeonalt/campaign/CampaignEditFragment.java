@@ -152,7 +152,7 @@ public class CampaignEditFragment extends Fragment {
                     }
 
                 } catch (Exception e) {
-                    response = "Unable to update the new campaign, Reason: "
+                    response = "Unable to update the campaign, Reason: "
                             + e.getMessage();
                 } finally {
                     if (urlConnection != null)
@@ -164,7 +164,7 @@ public class CampaignEditFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            if (s.startsWith("Unable to update the new campaign")) {
+            if (s.startsWith("Unable to update the campaign")) {
                 Toast.makeText(getContext().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 return;
             }

@@ -3,19 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_campaigns">
 
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="edu.tacoma.wa.pocketdungeonalt.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/nav_campaigns"
         android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignListFragment"
-        android:label="@string/menu_campaign_list"
+        android:label="Campaigns"
         tools:layout="@layout/fragment_campaign_list" >
         <action
             android:id="@+id/nav_action_campaign_view"
@@ -28,19 +22,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="edu.tacoma.wa.pocketdungeonalt.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <fragment
         android:id="@+id/nav_campaign_add"
         android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignAddFragment"
-        android:label="CampaignAddFragment"
+        android:label="Add A Campaign"
         tools:layout="@layout/fragment_campaign_add"/>
     <fragment
         android:id="@+id/nav_characters"
         android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterListFragment"
-        android:label="CharacterListFragment"
+        android:label="Characters"
         tools:layout="@layout/fragment_character_list">
         <action
             android:id="@+id/action_nav_characters_to_nav_character_view"
@@ -49,13 +38,13 @@
     <fragment
         android:id="@+id/nav_character_add"
         android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterAddFragment"
-        android:label="CharacterAddFragment"
+        android:label="Add A Character"
         tools:layout="@layout/fragment_campaign_add"/>
 
     <fragment
         android:id="@+id/nav_campaign_join"
         android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignJoinFragment"
-        android:label="CampaignJoinFragment"
+        android:label="Campaign Join"
         tools:layout="@layout/fragment_campaign_join">
         <argument
             android:name="CAMPAIGN"
@@ -71,7 +60,7 @@
     <fragment
         android:id="@+id/nav_campaign_view"
         android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignViewFragment"
-        android:label="CampaignViewFragment"
+        android:label="Campaign"
         tools:layout="@layout/fragment_campaign_view">
         <argument
             android:name="CAMPAIGN"
@@ -83,7 +72,7 @@
     <fragment
         android:id="@+id/nav_character_selector"
         android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterSelectorFragment"
-        android:label="CharacterSelectorFragment"
+        android:label="Select A Character"
         tools:layout="@layout/fragment_character_selector">
         <argument
             android:name="CAMPAIGN"
@@ -92,16 +81,19 @@
     <fragment
         android:id="@+id/nav_character_view"
         android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterViewFragment"
-        android:label="CharacterViewFragment"
+        android:label="Character"
         tools:layout="@layout/fragment_character_view">
         <argument
             android:name="CHARACTER"
             app:argType="edu.tacoma.wa.pocketdungeonalt.model.Character" />
+        <action
+            android:id="@+id/action_nav_character_view_to_nav_character_edit"
+            app:destination="@id/nav_character_edit" />
     </fragment>
     <fragment
         android:id="@+id/nav_campaign_edit"
         android:name="edu.tacoma.wa.pocketdungeonalt.campaign.CampaignEditFragment"
-        android:label="CampaignEditFragment"
+        android:label="Campaign Edit"
         tools:layout="@layout/fragment_campaign_edit">
         <action
             android:id="@+id/action_campaignEditFragment_to_nav_campaign_view"
@@ -110,4 +102,18 @@
             android:name="CAMPAIGN"
             app:argType="edu.tacoma.wa.pocketdungeonalt.model.Campaign" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_character_edit"
+        android:name="edu.tacoma.wa.pocketdungeonalt.character.CharacterEditFragment"
+        android:label="Character Edit"
+        tools:layout="@layout/fragment_character_edit">
+        <argument
+            android:name="CHARACTER"
+            app:argType="edu.tacoma.wa.pocketdungeonalt.model.Character" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_compendium"
+        android:name="edu.tacoma.wa.pocketdungeonalt.compendium.CompendiumWebViewFragment"
+        android:label="Compendium"
+        tools:layout="@layout/fragment_compendium_webview"/>
 </navigation>

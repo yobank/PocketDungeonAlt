@@ -24,20 +24,20 @@ public class Campaign implements Serializable {
     private String campaignName;
     private String campaignDescription;
     private String campaignNotes;
-    private String campaignRole;
+    private int creatorID;
 
     public static final String ID = "campaignid";
     public static final String NAME = "campaignname";
     public static final String DESCRIPTION = "campaigndescription";
     public static final String NOTES = "campaignnotes";
-    public static final String ROLE = "role";
+    public static final String CREATOR = "memberid";
 
-    public Campaign(int campaignID, String campaignName, String campaignDescription, String campaignNotes, String campaignRole) {
+    public Campaign(int campaignID, String campaignName, String campaignDescription, String campaignNotes, int creatorId) {
         this.campaignID = campaignID;
         this.campaignName = campaignName;
         this.campaignDescription = campaignDescription;
         this.campaignNotes = campaignNotes;
-        this.campaignRole = campaignRole;
+        this.creatorID = creatorId;
     }
 
     public int getCampaignID() { return campaignID; }
@@ -68,12 +68,8 @@ public class Campaign implements Serializable {
         this.campaignNotes = campaignNotes;
     }
 
-    public String getCampaignRole() {
-        return campaignRole;
-    }
-
-    public void setCampaignRole(String campaignRole) {
-        this.campaignRole = campaignRole;
+    public int getCreatorID() {
+        return creatorID;
     }
 
     /** Construct a campaign list by parsing JsonObject. */
@@ -85,7 +81,7 @@ public class Campaign implements Serializable {
                 JSONObject obj = arr.getJSONObject(i);
                 Campaign campaign = new Campaign(obj.getInt(Campaign.ID),
                         obj.getString(Campaign.NAME), obj.getString(Campaign.DESCRIPTION),
-                        obj.getString(Campaign.NOTES), "Player");
+                        obj.getString(Campaign.NOTES), obj.getInt(Campaign.CREATOR));
                 campaignList.add(campaign);
             }
         }
@@ -99,7 +95,7 @@ public class Campaign implements Serializable {
 
         Campaign campaign = new Campaign(obj.getInt(Campaign.ID),
                 obj.getString(Campaign.NAME), obj.getString(Campaign.DESCRIPTION),
-                obj.getString(Campaign.NOTES), "Player");
+                obj.getString(Campaign.NOTES), obj.getInt(Campaign.CREATOR));
         return campaign;
     }
 

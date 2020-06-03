@@ -16,4 +16,7 @@
 
     <string name="dnd_api">https://www.dnd5eapi.co/api/</string>
 
+    <string name="compendium">https://radai.github.io/dnd5tools/</string>
+
+
 </resources>

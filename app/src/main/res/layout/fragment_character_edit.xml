@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="0"
+        android:text="0"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/character_name_input"
@@ -132,6 +133,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="0"
+        android:text="0"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/character_alignment_input"
@@ -175,6 +177,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="0"
+        android:text="0"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/perception_label"
         app:layout_constraintHorizontal_bias="0.526"
@@ -199,6 +202,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="0"
+        android:text="0"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/inspiration_label"
         app:layout_constraintHorizontal_bias="0.526"
@@ -226,6 +230,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="0"
+        android:text="0"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/initiative_label"
         app:layout_constraintHorizontal_bias="0.51"
@@ -271,6 +276,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:ems="10"
+        android:text="0"
         android:hint="Hit Dice"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -297,7 +303,8 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="0"
-        android:inputType="number"
+            android:text="0"
+            android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/hit_dice_input"
         app:layout_constraintTop_toBottomOf="@+id/hit_dice_input" />
 
@@ -321,6 +328,7 @@
     android:layout_marginTop="8dp"
     android:ems="10"
     android:hint="0"
+            android:text="0"
             android:inputType="number"
     app:layout_constraintEnd_toEndOf="@+id/hit_dice_input"
     app:layout_constraintTop_toBottomOf="@+id/current_hp_input" />
@@ -342,6 +350,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="0"
+        android:text="0"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/ac_label"
         app:layout_constraintTop_toBottomOf="@+id/speed_input" />
@@ -365,6 +374,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="0"
+        android:text="0"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/ac_input"
         app:layout_constraintLeft_toRightOf="@id/proficiency_label"
@@ -399,6 +409,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="0"
+        android:text="0"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/info_button" />
@@ -433,6 +444,7 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="0"
+        android:text="0"
         android:inputType="number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/str_input" />
@@ -467,6 +479,8 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="0"
+        android:text="0"
+
         android:inputType="number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dex_input" />
@@ -500,6 +514,8 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="8dp"
             android:ems="10"
+        android:text="0"
+
         android:hint="0"
             android:inputType="number"
             app:layout_constraintStart_toStartOf="parent"
@@ -535,6 +551,8 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="0"
+        android:text="0"
+
         android:inputType="number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/int_input" />
@@ -568,6 +586,8 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="8dp"
             android:ems="10"
+        android:text="0"
+
         android:hint="0"
             android:inputType="number"
             app:layout_constraintStart_toStartOf="parent"
@@ -650,16 +670,16 @@
         app:layout_constraintEnd_toStartOf="@+id/add_button" />
 
     <!-- create -->
-    <Button
-        android:id="@+id/add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="16dp"
-        android:text="Create"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="16dp"
+            android:text="Update"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

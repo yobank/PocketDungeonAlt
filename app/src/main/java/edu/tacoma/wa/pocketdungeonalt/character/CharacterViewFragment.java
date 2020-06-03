@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import org.json.JSONObject;
+
+import java.io.Serializable;
 
 import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
@@ -55,7 +58,6 @@ public class CharacterViewFragment extends Fragment {
     private Button button_other_proficiencies;
     private String other_proficiencies = "no other proficiencies";
     private Button add_button;
-    private Button cancel_button;
 
     private SharedPreferences mSharedPreferences;
     private JSONObject mCharacterJSON;
@@ -65,7 +67,7 @@ public class CharacterViewFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_character_view, container, false);
 
-        Character character = (Character) getArguments().getSerializable("CHARACTER");
+        final Character character = (Character) getArguments().getSerializable("CHARACTER");
 
         character_name = view.findViewById(R.id.character_name_input);
         character_name.setText(character.getCharacterName());
@@ -122,6 +124,8 @@ public class CharacterViewFragment extends Fragment {
         button_other_proficiencies = view.findViewById(R.id.otherProf_button);
         other_proficiencies = character.getOtherProficiencies();
 
+        add_button = view.findViewById(R.id.add_button);
+
         TextView strMod = view.findViewById(R.id.str_mod);
         TextView dexMod = view.findViewById(R.id.dex_mod);
         TextView conMod = view.findViewById(R.id.con_mod);
@@ -129,12 +133,21 @@ public class CharacterViewFragment extends Fragment {
         TextView wisMod = view.findViewById(R.id.wis_mod);
         TextView chaMod = view.findViewById(R.id.cha_mod);
 
-        strMod.setText(calcMod(Integer.valueOf(strength.getText().toString())));
-        dexMod.setText(calcMod(Integer.valueOf(dexterity.getText().toString())));
-        conMod.setText(calcMod(Integer.valueOf(constitution.getText().toString())));
-        intMod.setText(calcMod(Integer.valueOf(intelligence.getText().toString())));
-        wisMod.setText(calcMod(Integer.valueOf(wisdom.getText().toString())));
-        chaMod.setText(calcMod(Integer.valueOf(charisma.getText().toString())));
+        strMod.setText(calcMod(Integer.parseInt(strength.getText().toString())));
+        dexMod.setText(calcMod(Integer.parseInt(dexterity.getText().toString())));
+        conMod.setText(calcMod(Integer.parseInt(constitution.getText().toString())));
+        intMod.setText(calcMod(Integer.parseInt(intelligence.getText().toString())));
+        wisMod.setText(calcMod(Integer.parseInt(wisdom.getText().toString())));
+        chaMod.setText(calcMod(Integer.parseInt(charisma.getText().toString())));
+
+        add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CHARACTER", (Serializable) character);
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_character_view_to_nav_character_edit, bundle);
+            }
+        });
 
         button_background.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,12 +198,13 @@ public class CharacterViewFragment extends Fragment {
     private String calcMod(double val) {
         double vall = (val - 10) / 2;
         if (vall < 0) {
-            System.out.println("1: " + (val - 10) / 2);
             val = Math.floor(vall);
-            System.out.println("2: " + val);
+            return String.valueOf((int)val);
         }
-        else {val = Math.ceil(val);}
-        return String.valueOf((int)val);
+        else {
+            val = Math.ceil(vall);
+            return "+" + String.valueOf((int)val);
+        }
     }
 
     private void showBackgroundDialog(Context c) {
