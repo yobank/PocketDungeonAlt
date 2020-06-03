@@ -116,4 +116,9 @@
         android:name="edu.tacoma.wa.pocketdungeonalt.compendium.CompendiumWebViewFragment"
         android:label="Compendium"
         tools:layout="@layout/fragment_compendium_webview"/>
+    <fragment
+        android:id="@+id/nav_dice"
+        android:name="edu.tacoma.wa.pocketdungeonalt.dice.DiceWebViewFragment"
+        android:label="Roll Dice"
+        tools:layout="@layout/fragment_dice_web_view"/>
 </navigation>
