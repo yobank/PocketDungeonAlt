@@ -17,7 +17,7 @@
             android:title="Compendium" />
         <item
             android:id="@+id/nav_dice"
-            android:icon="@drawable/ic_compendium"
-            android:title="Compendium" />
+            android:icon="@drawable/ic_dice"
+            android:title="Dice" />
     </group>
 </menu>

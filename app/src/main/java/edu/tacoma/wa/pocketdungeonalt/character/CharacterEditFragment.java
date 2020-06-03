@@ -72,6 +72,7 @@ public class CharacterEditFragment extends Fragment {
     private Button button_other_proficiencies;
     private String other_proficiencies;
     private Button add_button;
+    private Button cancel_button;
 
     private SharedPreferences mSharedPreferences;
     private JSONObject mCharacterJSON;
@@ -138,7 +139,10 @@ public class CharacterEditFragment extends Fragment {
         button_other_proficiencies = view.findViewById(R.id.otherProf_button);
         other_proficiencies = character.getOtherProficiencies();
 
+
         add_button = view.findViewById(R.id.add_button);
+        cancel_button = view.findViewById(R.id.cancell_button);
+
 
         TextView strMod = view.findViewById(R.id.str_mod);
         TextView dexMod = view.findViewById(R.id.dex_mod);
@@ -237,6 +241,13 @@ public class CharacterEditFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_characters);
             }
         });
 
@@ -426,10 +437,9 @@ public class CharacterEditFragment extends Fragment {
                     OutputStreamWriter wr =
                             new OutputStreamWriter(urlConnection.getOutputStream());
                     // For Debugging
-                    Log.i("Add_Character", mCharacterJSON.toString());
+                    Log.i("Edit_Character", mCharacterJSON.toString());
 
                     wr.write(mCharacterJSON.toString());
-                    System.out.println("3");
 
                     wr.flush();
                     wr.close();
@@ -453,7 +463,7 @@ public class CharacterEditFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            if (s.startsWith("Unable to add the new character")) {
+            if (s.startsWith("Unable to edit the character")) {
                 Toast.makeText(getContext().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -462,26 +472,26 @@ public class CharacterEditFragment extends Fragment {
 
 
                 // For Debugging
-                Log.i("Add_character", jsonObject.toString());
+                Log.i("Edit_character", jsonObject.toString());
 
                 if (jsonObject.getBoolean("success")) {
-                    Toast.makeText(getContext().getApplicationContext(), "Character Added successfully"
+                    Toast.makeText(getContext().getApplicationContext(), "Character Edited successfully"
                             , Toast.LENGTH_SHORT).show();
 
                     Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_characters);
 
                 }
                 else {
-                    Toast.makeText(getContext().getApplicationContext(), "Character couldn't be added: "
+                    Toast.makeText(getContext().getApplicationContext(), "Character couldn't be edited: "
                                     + jsonObject.getString("error")
                             , Toast.LENGTH_LONG).show();
-                    Log.e("Add_Campaign", jsonObject.getString("error"));
+                    Log.e("Eddit_Character", jsonObject.getString("error"));
                 }
             } catch (JSONException e) {
-                Toast.makeText(getContext().getApplicationContext(), "JSON Parsing error on Adding character"
+                Toast.makeText(getContext().getApplicationContext(), "JSON Parsing error on Editing character"
                                 + e.getMessage()
                         , Toast.LENGTH_LONG).show();
-                Log.e("Add_Character", e.getMessage());
+                Log.e("Edit_Character", e.getMessage());
             }
         }
     }
