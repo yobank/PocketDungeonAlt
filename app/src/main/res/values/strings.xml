@@ -40,4 +40,5 @@
     <string name="term_text">Select term</string>
     <string name="menu_campaign_list">campaign list</string>
     <string name="menu_campaign_add">campaign add</string>
+
 </resources>

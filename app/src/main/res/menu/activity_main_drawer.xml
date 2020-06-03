@@ -15,5 +15,9 @@
             android:id="@+id/nav_compendium"
             android:icon="@drawable/ic_compendium"
             android:title="Compendium" />
+        <item
+            android:id="@+id/nav_dice"
+            android:icon="@drawable/ic_compendium"
+            android:title="Compendium" />
     </group>
 </menu>
