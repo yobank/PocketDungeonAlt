@@ -163,13 +163,11 @@ public class CampaignListFragment extends Fragment {
         class ViewHolder extends RecyclerView.ViewHolder {
             final TextView mNameView;
             final TextView mNotesView;
-            LinearLayout mainLayout;
 
             ViewHolder(View view) {
                 super(view);
                 mNameView = view.findViewById(R.id.campaign_name_txt);
                 mNotesView = view.findViewById(R.id.campaign_description_txt);
-                mainLayout = view.findViewById(R.id.mainLayout);
             }
         }
     }

@@ -135,14 +135,12 @@ public class CharacterListFragment extends Fragment {
             final TextView mNameView;
             final TextView mClassView;
             final TextView mLevelView;
-            LinearLayout mainLayout;
 
             ViewHolder(View view) {
                 super(view);
                 mNameView = view.findViewById(R.id.character_name_txt);
                 mClassView = view.findViewById(R.id.character_class_txt);
                 mLevelView = view.findViewById(R.id.character_level_txt);
-                mainLayout = view.findViewById(R.id.mainLayout);
             }
         }
     }
