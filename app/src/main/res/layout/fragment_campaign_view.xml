@@ -73,6 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/description_label" />
 
         <Button
+            style="@style/ButtonTransparent"
             android:id="@+id/notes_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,6 +102,7 @@
             app:layout_constraintTop_toBottomOf="@+id/players_label" />
 
         <Button
+            style="@style/ButtonSolid"
             android:id="@+id/edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,6 +114,7 @@
             app:layout_constraintTop_toBottomOf="@+id/player_list" />
 
         <Button
+            style="@style/ButtonTransparent"
             android:id="@+id/share_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

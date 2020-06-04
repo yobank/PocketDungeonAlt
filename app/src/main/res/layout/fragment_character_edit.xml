@@ -659,6 +659,7 @@
 
     <!-- cancel -->
     <Button
+        style="@style/ButtonTransparent"
         android:id="@+id/cancell_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -671,6 +672,7 @@
 
     <!-- create -->
         <Button
+            style="@style/ButtonSolid"
             android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
