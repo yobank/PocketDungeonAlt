@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -140,14 +141,26 @@ public class CharacterViewFragment extends Fragment {
         wisMod.setText(calcMod(Integer.parseInt(wisdom.getText().toString())));
         chaMod.setText(calcMod(Integer.parseInt(charisma.getText().toString())));
 
+        mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        final int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
+
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("CHARACTER", (Serializable) character);
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_character_view_to_nav_character_edit, bundle);
+
+                if (character.getCreatorID() == userID) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("CHARACTER", (Serializable) character);
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_character_view_to_nav_character_edit, bundle);
+                }
+                else {
+                    Toast.makeText(getContext().getApplicationContext(), "Only the owner of this character may edit it.",
+                            Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
+
 
         button_background.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -55,7 +55,7 @@ public class CampaignJoinFragment extends Fragment {
 
         String campaignId = "Code: " + campaign.getCampaignID();
         String campaignName = "Name: " + campaign.getCampaignName();
-        String campaignDesc = "Description: " + campaign.getGetCampaignNotes();
+        String campaignDesc = "Description: " + campaign.getGetCampaignDescription();
 
         TextView mIdView = view.findViewById(R.id.campaignId_txt);
         TextView mNameView = view.findViewById(R.id.campaignName_txt);
@@ -131,7 +131,7 @@ public class CampaignJoinFragment extends Fragment {
 
             ViewHolder(View view) {
                 super(view);
-                mNameView = view.findViewById(R.id.character_name);
+                mNameView = view.findViewById(R.id.character_name_txt);
             }
         }
     }

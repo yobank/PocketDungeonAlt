@@ -134,8 +134,8 @@ public class CharacterSelectorFragment extends Fragment {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mNameView.setText(mValues.get(position).getCharacterName());
-            holder.mClassView.setText(mValues.get(position).getCharacterClass());
-            holder.mLevelView.setText("" + mValues.get(position).getCharacterLevel());
+            holder.mClassView.setText("Class: " + mValues.get(position).getCharacterClass());
+            holder.mLevelView.setText("Level: " + mValues.get(position).getCharacterLevel());
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);

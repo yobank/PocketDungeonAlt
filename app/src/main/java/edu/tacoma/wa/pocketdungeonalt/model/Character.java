@@ -43,6 +43,8 @@ public class Character implements Serializable {
     private String attacks;
     private String equipment;
     private String otherProficiencies;
+    private int creatorID;
+
 
     // fields for query database
     public static final String CHARACTERID = "characterid";
@@ -73,10 +75,11 @@ public class Character implements Serializable {
     public static final String ATTACKS = "attacks";
     public static final String EQUIPMENT = "equipment";
     public static final String OTHERPROFICIENCIES = "otherproficiencies";
+    public static final String CREATOR = "memberid";
 
     public Character(int id, String name, String charClass, String race, int level, String backGround, String align, String info,
                      int exp, int insp, int prof, int ac, int init, String spd, int mxHP, int curHP, String hd, String skls,
-                     int str, int dex, int constI, int intl, int wis, int cha, int prcp, String atk, String equip, String otherProf) {
+                     int str, int dex, int constI, int intl, int wis, int cha, int prcp, String atk, String equip, String otherProf, int creatorId) {
         characterID = id;
         characterName = name;
         characterClass = charClass;
@@ -105,6 +108,8 @@ public class Character implements Serializable {
         attacks = atk;
         equipment = equip;
         otherProficiencies = otherProf;
+        this.creatorID = creatorId;
+
     }
 
 
@@ -153,7 +158,8 @@ public class Character implements Serializable {
                         obj.getInt(Character.PERCEPTION),
                         obj.getString(Character.ATTACKS),
                         obj.getString(Character.EQUIPMENT),
-                        obj.getString(Character.OTHERPROFICIENCIES));
+                        obj.getString(Character.OTHERPROFICIENCIES),
+                        obj.getInt(Character.CREATOR));
 
                 characterList.add(character);
             }
@@ -287,6 +293,8 @@ public class Character implements Serializable {
     public String getOtherProficiencies() { return otherProficiencies; }
 
     public void setOtherProficiencies(String otherProficiencies) { this.otherProficiencies = otherProficiencies; }
+
+    public int getCreatorID() { return creatorID; }
 }
 
 
