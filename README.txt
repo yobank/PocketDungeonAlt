@@ -14,10 +14,12 @@ Pocket Dungeon
 - Members of a campaign can view the character sheets of any joined players
 - The creator of a campaign can add notes pertaining to said campaign which all joined players can view
 - Users can search for information pertaining to Dungeons & Dragons 5th edition
+- Users can roll a variety of dice used in Dungeons & Dragons
 - Users can log out of the app
 
 ## DEVICE STORAGE ##
 - We store user login information in SharedPreferences for automatic sign in
+- SharedPreferences also stores all campaignids, characterids, and userids
 
 
 ## TESTING TIPS ##
@@ -27,3 +29,7 @@ Pocket Dungeon
 - Sample Testing accounts
 	email: tester1@email.com
 	password: password
+
+- Sample Campaign Code to test joining a campaign: 1022
+
+- During development, the app was tested on the Nexus 5X and the Pixel 2. All screens should display fine on devices of all sizes, but incase anyone runs in to elements being clipped off screen, those two devices are confirmed to work.
