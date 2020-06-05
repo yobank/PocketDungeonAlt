@@ -1,3 +1,9 @@
+/**
+ * Fragment class to handle editing campaigns
+ *
+ * @author: James McHugh & Meng Yang
+ */
+
 package edu.tacoma.wa.pocketdungeonalt.campaign;
 
 import android.app.AlertDialog;
@@ -32,6 +38,7 @@ import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.User;
 
+// Class for the campaign edit screen
 public class CampaignEditFragment extends Fragment {
 
     private Campaign campaign;

@@ -1,3 +1,9 @@
+/**
+ * Fragment class to handle viewing campaigns
+ *
+ * @author: James McHugh & Meng Yang
+ */
+
 package edu.tacoma.wa.pocketdungeonalt.campaign;
 
 import android.app.AlertDialog;
@@ -34,6 +40,7 @@ import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 
+// Class for the campaign view
 public class CampaignViewFragment extends Fragment {
 
     private List<Character> mCharacterList;
@@ -50,9 +57,6 @@ public class CampaignViewFragment extends Fragment {
                 .getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         final int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
 
-        System.out.println("holal: " + campaign.getCreatorID());
-        int campaignid = getArguments().getInt("campaignid");
-
         TextView campaign_name = view.findViewById(R.id.campaign_name_txt);
         TextView campaign_code = view.findViewById(R.id.code_label);
         TextView campaign_description = view.findViewById(R.id.campaign_description_txt);
@@ -61,7 +65,6 @@ public class CampaignViewFragment extends Fragment {
         Button share_button = view.findViewById(R.id.share_button);
 
         String temp = "Campaign Code: " + campaign.getCampaignID();
-        System.out.println(temp);
         campaign_name.setText(campaign.getCampaignName());
         campaign_code.setText(temp);
         campaign_description.setText(campaign.getGetCampaignDescription());
@@ -113,6 +116,7 @@ public class CampaignViewFragment extends Fragment {
         return view;
     }
 
+    // displays the popup window for campaign notes
     private void showNotesDialog(Context c) {
         final TextView notes = new TextView(c);
         notes.setText(campaign_notes);
@@ -140,13 +144,9 @@ public class CampaignViewFragment extends Fragment {
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("bungus");
                 Character item = (Character) view.getTag();
-                System.out.println(item.getCharacterName());
-
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("CHARACTER", (Serializable) item);
-                // just nav and pass item?
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
                         .navigate(R.id.action_nav_campaign_view_to_nav_character_view, bundle);
             }
@@ -192,6 +192,7 @@ public class CampaignViewFragment extends Fragment {
             }
         }
     }
+
 
     private class CharactersTask extends AsyncTask<String, Void, String> {
         @Override
