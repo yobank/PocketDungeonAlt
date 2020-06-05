@@ -1,8 +1,6 @@
 package edu.tacoma.wa.pocketdungeonalt.campaign;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,25 +32,16 @@ import java.util.List;
 import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 
-import static androidx.core.os.BundleKt.bundleOf;
-
 public class CampaignListFragment extends Fragment {
-
 
     private List<Campaign> mCampaignList;
     private RecyclerView mRecyclerView;
-    private SharedPreferences mSharedPreferences;
-
-    private JSONObject mCampaignJSON;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         View view = inflater.inflate(R.layout.fragment_campaign_list, container, false);
-
         final EditText campaign_code = view.findViewById(R.id.campaign_code_input);
-
 
         mRecyclerView = view.findViewById(R.id.recyclerView);
         Button add_button = view.findViewById(R.id.add_button);
@@ -62,7 +50,6 @@ public class CampaignListFragment extends Fragment {
             public void onClick(View view) {
                 System.out.println("clicked");
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_campaign_add);
-
             }
         });
 
@@ -75,28 +62,20 @@ public class CampaignListFragment extends Fragment {
                 String campaignId = campaign_code.getText().toString();
                 StringBuilder url = new StringBuilder(getString(R.string.search_campaign));
                 url.append(campaignId);
-                mCampaignJSON = new JSONObject();
                 new SearchCampaignTask().execute(url.toString());
             }
         });
 
         assert mRecyclerView != null;
         setupRecyclerView(mRecyclerView);
-
-        mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        SharedPreferences mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
-
         StringBuilder url = new StringBuilder(getString(R.string.get_campaigns));
         url.append(userID);
-
-        mCampaignJSON = new JSONObject();
         new CampaignListFragment.CampaignTask().execute(url.toString());
-
-
 
         return view;
     }
-
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         if (mCampaignList != null) {
@@ -113,7 +92,6 @@ public class CampaignListFragment extends Fragment {
         private final CampaignListFragment mParent;
         private final List<Campaign> mValues;
 
-
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,9 +100,7 @@ public class CampaignListFragment extends Fragment {
 
                 StringBuilder url = new StringBuilder(getString(R.string.search_campaign));
                 url.append(campaignId);
-                mCampaignJSON = new JSONObject();
                 new viewCampaignTask().execute(url.toString());
-
             }
         };
 
@@ -148,7 +124,6 @@ public class CampaignListFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mNameView.setText(mValues.get(position).getCampaignName());
             holder.mNotesView.setText(mValues.get(position).getGetCampaignDescription());
-
             holder.itemView.setId(mValues.get(position).getCampaignID());
             holder.itemView.setOnClickListener(mOnClickListener);
         }
@@ -210,10 +185,7 @@ public class CampaignListFragment extends Fragment {
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 if (jsonObject.getBoolean("success")) {
-
-                    mCampaignList = Campaign.parseCampaignJson(
-                            jsonObject.getString("names"));
-
+                    mCampaignList = Campaign.parseCampaignJson(jsonObject.getString("names"));
                     if (!mCampaignList.isEmpty()) {
                         setupRecyclerView(mRecyclerView);
                     }
@@ -268,12 +240,10 @@ public class CampaignListFragment extends Fragment {
                     Campaign campaign = Campaign.parseJoinCampaign(
                             jsonObject.getString("names"));
 
-
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
                     Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_campaigns_to_nav_campaign_join2, bundle);
                 }
-
             } catch (JSONException e) {
                 Toast.makeText(getContext().getApplicationContext(), "Unable to find campaign: Invalid Code",
                         Toast.LENGTH_SHORT).show();
@@ -318,18 +288,13 @@ public class CampaignListFragment extends Fragment {
             }
             try {
                 JSONObject jsonObject = new JSONObject(s);
-
                 if (jsonObject.getBoolean("success")) {
-
                     Campaign campaign = Campaign.parseJoinCampaign(
                             jsonObject.getString("names"));
-
-
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
                     Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_action_campaign_view, bundle);
                 }
-
             } catch (JSONException e) {
                 Toast.makeText(getContext().getApplicationContext(), "Unable to find campaign: Invalid Code",
                         Toast.LENGTH_SHORT).show();

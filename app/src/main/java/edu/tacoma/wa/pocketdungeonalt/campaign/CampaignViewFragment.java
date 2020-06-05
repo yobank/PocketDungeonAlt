@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +28,6 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import edu.tacoma.wa.pocketdungeonalt.R;
@@ -41,40 +38,27 @@ public class CampaignViewFragment extends Fragment {
 
     private List<Character> mCharacterList;
     private RecyclerView mRecyclerView;
-    private SharedPreferences mSharedPreferences;
-
-    private TextView campaign_name;
-    private TextView campaign_description;
-    private TextView campaign_code;
     private String campaign_notes;
-    private Button campaign_notes_button;
-    private Button edit_button;
-    private Button share_button;
-    private JSONObject mCampaignJSON;
-
     private Campaign campaign;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_campaign_view, container, false);
-
         campaign = (Campaign) getArguments().getSerializable("CAMPAIGN");
-
-        mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        SharedPreferences mSharedPreferences = getContext()
+                .getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         final int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
 
-
         System.out.println("holal: " + campaign.getCreatorID());
-
         int campaignid = getArguments().getInt("campaignid");
 
-        campaign_name = view.findViewById(R.id.campaign_name_txt);
-        campaign_code = view.findViewById(R.id.code_label);
-        campaign_description = view.findViewById(R.id.campaign_description_txt);
-        campaign_notes_button  = view.findViewById(R.id.notes_button);
-        edit_button = view.findViewById(R.id.edit_button);
-        share_button = view.findViewById(R.id.share_button);
+        TextView campaign_name = view.findViewById(R.id.campaign_name_txt);
+        TextView campaign_code = view.findViewById(R.id.code_label);
+        TextView campaign_description = view.findViewById(R.id.campaign_description_txt);
+        Button campaign_notes_button = view.findViewById(R.id.notes_button);
+        Button edit_button = view.findViewById(R.id.edit_button);
+        Button share_button = view.findViewById(R.id.share_button);
 
         String temp = "Campaign Code: " + campaign.getCampaignID();
         System.out.println(temp);
@@ -118,12 +102,8 @@ public class CampaignViewFragment extends Fragment {
             }
         });
 
-
-
-
         StringBuilder url = new StringBuilder(getString(R.string.search_characters));
         url.append(campaign.getCampaignID());
-        Log.i("url", url.toString());
         new CampaignViewFragment.CharactersTask().execute(url.toString());
 
         mRecyclerView = view.findViewById(R.id.player_list);
@@ -143,8 +123,6 @@ public class CampaignViewFragment extends Fragment {
                 .create();
         dialog.show();
     }
-
-
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         if (mCharacterList != null) {
@@ -169,9 +147,8 @@ public class CampaignViewFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("CHARACTER", (Serializable) item);
                 // just nav and pass item?
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_campaign_view_to_nav_character_view, bundle);
-
-
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                        .navigate(R.id.action_nav_campaign_view_to_nav_character_view, bundle);
             }
         };
 
@@ -206,16 +183,12 @@ public class CampaignViewFragment extends Fragment {
             final TextView mNameView;
             final TextView mClassView;
             final TextView mLevelView;
-            LinearLayout mainLayout;
-
 
             ViewHolder(View view) {
                 super(view);
                 mNameView = view.findViewById(R.id.character_name_txt);
                 mClassView = view.findViewById(R.id.character_class_txt);
                 mLevelView = view.findViewById(R.id.character_level_txt);
-                mainLayout = view.findViewById(R.id.mainLayout);
-
             }
         }
     }
@@ -276,9 +249,4 @@ public class CampaignViewFragment extends Fragment {
             }
         }
     }
-
-
-
-
-
 }

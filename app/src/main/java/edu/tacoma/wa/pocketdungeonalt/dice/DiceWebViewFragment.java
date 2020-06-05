@@ -1,3 +1,8 @@
+/**
+ * This class sets up a webView to display a website for user to roll dice.
+ *
+ * @author: Meng Yang
+ */
 package edu.tacoma.wa.pocketdungeonalt.dice;
 
 import android.os.Bundle;
@@ -15,14 +20,13 @@ import android.webkit.WebViewClient;
 import edu.tacoma.wa.pocketdungeonalt.R;
 
 public class DiceWebViewFragment extends Fragment {
-    private WebView webView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_dice_web_view, container, false);
-        webView = view.findViewById(R.id.dice_view);
+        WebView webView = view.findViewById(R.id.dice_view);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(getString(R.string.dice));
         WebSettings webSettings = webView.getSettings();

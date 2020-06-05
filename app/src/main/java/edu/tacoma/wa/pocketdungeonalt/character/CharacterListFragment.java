@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,17 +35,11 @@ public class CharacterListFragment extends Fragment {
 
     private List<Character> mCharacterList;
     private RecyclerView mRecyclerView;
-    private SharedPreferences mSharedPreferences;
-    private JSONObject mCharacterJSON;
-    private StringBuilder url;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         View view = inflater.inflate(R.layout.fragment_character_list, container, false);
-
         mRecyclerView = view.findViewById(R.id.recyclerView);
         Button add_button = view.findViewById(R.id.add_button);
         add_button.setOnClickListener(new View.OnClickListener() {
@@ -62,16 +54,14 @@ public class CharacterListFragment extends Fragment {
         setupRecyclerView(mRecyclerView);
 
         /** Use SharedPreferences to retrieve userID for query. */
-        mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        SharedPreferences mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
 
         /** Set up url and append userID in the url query field. */
-        url = new StringBuilder(getString(R.string.get_characters));
+        StringBuilder url = new StringBuilder(getString(R.string.get_characters));
         url.append(userID);
 
-        mCharacterJSON = new JSONObject();
         new CharacterListFragment.CharacterTask().execute(url.toString());
-
         return view;
     }
 
@@ -97,8 +87,8 @@ public class CharacterListFragment extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("CHARACTER", (Serializable) item);
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_characters_to_nav_character_view, bundle);
-
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                        .navigate(R.id.action_nav_characters_to_nav_character_view, bundle);
             }
         };
 
@@ -191,9 +181,6 @@ public class CharacterListFragment extends Fragment {
                 if (jsonObject.getBoolean("success")) {
                     mCharacterList = Character.parseCharacterJSON(
                             jsonObject.getString("names"));
-
-                    // For Debugging
-                    Log.i("characterJson", mCharacterJSON.toString());
 
                     if (!mCharacterList.isEmpty()) {
                         setupRecyclerView(mRecyclerView);

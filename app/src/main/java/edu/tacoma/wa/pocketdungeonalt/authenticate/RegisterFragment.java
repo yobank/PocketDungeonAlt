@@ -1,3 +1,8 @@
+/**
+ * This class handles register activity from a user.
+ *
+ * @author: Meng Yang
+ */
 package edu.tacoma.wa.pocketdungeonalt.authenticate;
 
 import android.content.Intent;

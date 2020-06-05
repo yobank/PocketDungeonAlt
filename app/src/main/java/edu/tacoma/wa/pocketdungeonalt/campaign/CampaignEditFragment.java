@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +25,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -40,11 +38,6 @@ public class CampaignEditFragment extends Fragment {
     private EditText campaign_name;
     private EditText campaign_description;
     private String campaign_notes;
-    private Button campaign_notes_button;
-    public Button add_button;
-    public Button cancel_button;
-
-
     private SharedPreferences mSharedPreferences;
     private JSONObject mCampaignJSON;
 
@@ -57,12 +50,8 @@ public class CampaignEditFragment extends Fragment {
 
         campaign_name = view.findViewById(R.id.campaign_name_input);
         campaign_description = view.findViewById(R.id.campaign_description_input);
-        add_button = view.findViewById(R.id.add_button);
-        cancel_button = view.findViewById(R.id.cancell_button);
-
-        campaign_notes_button = view.findViewById(R.id.notes_button);
-
-
+        Button cancel_button = view.findViewById(R.id.cancell_button);
+        Button campaign_notes_button = view.findViewById(R.id.notes_button);
 
         campaign_name.setText(campaign.getCampaignName());
         campaign_description.setText(campaign.getGetCampaignDescription());
@@ -85,7 +74,6 @@ public class CampaignEditFragment extends Fragment {
                 String campaignDescription = campaign_description.getText().toString();
                 mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
                 int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
-
                 StringBuilder url = new StringBuilder(getString(R.string.update_campaign));
                 mCampaignJSON = new JSONObject();
                 try {
@@ -100,16 +88,12 @@ public class CampaignEditFragment extends Fragment {
                 }
             }
         });
-
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_campaigns);
             }
         });
-
-
-
         return view;
     }
 
@@ -131,8 +115,6 @@ public class CampaignEditFragment extends Fragment {
         dialog.show();
     }
 
-
-
     /** Send post request to server, adding campaign details into server. */
     private class AddCampaignTask extends AsyncTask<String, Void, String> {
 
@@ -149,8 +131,6 @@ public class CampaignEditFragment extends Fragment {
                     urlConnection.setDoOutput(true);
                     OutputStreamWriter wr =
                             new OutputStreamWriter(urlConnection.getOutputStream());
-                    // For Debugging
-                    Log.i("Add_Campaign", mCampaignJSON.toString());
 
                     wr.write(mCampaignJSON.toString());
                     wr.flush();
@@ -182,16 +162,10 @@ public class CampaignEditFragment extends Fragment {
             try {
                 JSONObject jsonObject = new JSONObject(s);
 
-                // For Debugging
-                Log.i("Add_campaign", jsonObject.toString());
-
                 if (jsonObject.getBoolean("success")) {
                     Toast.makeText(getContext().getApplicationContext(), "Campaign Updated successfully"
                             , Toast.LENGTH_SHORT).show();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
                     Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_campaigns);
-
                 }
                 else {
                     Toast.makeText(getContext().getApplicationContext(), "Campaign couldn't be updated: "
@@ -207,7 +181,4 @@ public class CampaignEditFragment extends Fragment {
             }
         }
     }
-
-
-
 }

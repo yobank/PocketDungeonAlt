@@ -1,3 +1,8 @@
+/**
+ * This class construct a User object.
+ *
+ * @author: Meng Yang
+ */
 package edu.tacoma.wa.pocketdungeonalt.model;
 
 import java.io.Serializable;
