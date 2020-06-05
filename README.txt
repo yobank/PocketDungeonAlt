@@ -1,11 +1,11 @@
 Pocket Dungeon
 
 ## CHANGES FROM SPRINT 1 ##
-- The biggest piece of feedback we recieved was that our navigation felt very unintuitive so we revamped the whole app to use a navigation drawer layout, making navigating between screens much easier.
+- The biggest piece of feedback we received was that our navigation felt very unintuitive, so we revamped the whole app to use a navigation drawer layout, making navigating between screens much easier.
 
 ## IMPLEMENTED USER STORIES ##
 - A new user can register for an account with an email and password
-- A returning user can login using their email and password and have their account information saved
+- A returning user can login using their email and password and have thier account information saved
 - Users can create new Dungeons & Dragons campaigns which other users can then join
 - Players can search for campaigns by their unique campaign code and then join with one of their characters
 - The creator of a campaign can send invites to other users to join thier campaign
