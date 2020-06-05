@@ -1,3 +1,8 @@
+/**
+ * This class handles login activity from a user.
+ *
+ * @author: Meng Yang
+ */
 package edu.tacoma.wa.pocketdungeonalt.authenticate;
 
 import android.content.Context;
@@ -40,7 +45,6 @@ public class LoginFragment extends Fragment {
 
     private LoginFragmentListener mLoginFragmentListener;
     private JSONObject mUserJSON;
-    private SharedPreferences mSharedPreferences;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -158,7 +162,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(),
                             "Login Successfully", Toast.LENGTH_SHORT).show();
 
-                    mSharedPreferences = getActivity().getSharedPreferences(getString(R.string.LOGIN_PREFS),
+                    SharedPreferences mSharedPreferences = getActivity().getSharedPreferences(getString(R.string.LOGIN_PREFS),
                             Context.MODE_PRIVATE);
                     mSharedPreferences.edit()
                             .putInt(getString(R.string.USERID), jsonObject.getInt("memberId"))

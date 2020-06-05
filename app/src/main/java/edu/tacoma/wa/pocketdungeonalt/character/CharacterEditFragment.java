@@ -30,9 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.tacoma.wa.pocketdungeonalt.R;
-import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
-import edu.tacoma.wa.pocketdungeonalt.model.User;
 
 public class CharacterEditFragment extends Fragment {
 
@@ -42,10 +40,8 @@ public class CharacterEditFragment extends Fragment {
     private EditText character_class;
     private EditText character_race;
     private EditText character_level;
-    private Button button_background;
     private String background;
     private EditText alignment;
-    private Button button_info;
     private String info;
     private EditText experience;
     private EditText inspiration;
@@ -56,7 +52,6 @@ public class CharacterEditFragment extends Fragment {
     private EditText maxHP;
     private EditText currentHP;
     private EditText hit_dice;
-    private Button button_skills;
     private String skills;
     private EditText strength;
     private EditText dexterity;
@@ -65,14 +60,9 @@ public class CharacterEditFragment extends Fragment {
     private EditText wisdom;
     private EditText charisma;
     private EditText perception;
-    private Button button_attacks;
     private String attacks;
-    private Button button_equipment;
     private String equipment;
-    private Button button_other_proficiencies;
     private String other_proficiencies;
-    private Button add_button;
-    private Button cancel_button;
 
     private SharedPreferences mSharedPreferences;
     private JSONObject mCharacterJSON;
@@ -92,11 +82,11 @@ public class CharacterEditFragment extends Fragment {
         character_race.setText(character.getCharacterRace());
         character_level = view.findViewById(R.id.character_level_input);
         character_level.setText(String.valueOf(character.getCharacterLevel()));
-        button_background = view.findViewById(R.id.background_button);
+        Button button_background = view.findViewById(R.id.background_button);
         background = character.getCharacterBackground();
         alignment  = view.findViewById(R.id.character_alignment_input);
         alignment.setText(character.getCharacterAlignment());
-        button_info = view.findViewById(R.id.info_button);
+        Button button_info = view.findViewById(R.id.info_button);
         info = character.getCharacterInfo();
         experience = view.findViewById(R.id.character_experience_input);
         experience.setText(String.valueOf(character.getExperience()));
@@ -116,7 +106,7 @@ public class CharacterEditFragment extends Fragment {
         currentHP.setText(String.valueOf(character.getCurrentHP()));
         hit_dice = view.findViewById(R.id.hit_dice_input);
         hit_dice.setText(character.getHitDice());
-        button_skills = view.findViewById(R.id.skills_button);
+        Button button_skills = view.findViewById(R.id.skills_button);
         skills = character.getSkills();
         strength = view.findViewById(R.id.str_input);
         strength.setText(String.valueOf(character.getStrength()));
@@ -132,16 +122,16 @@ public class CharacterEditFragment extends Fragment {
         charisma.setText(String.valueOf(character.getCharisma()));
         perception = view.findViewById(R.id.character_perception_input);
         perception.setText(String.valueOf(character.getPerception()));
-        button_attacks = view.findViewById(R.id.attacks_button);
+        Button button_attacks = view.findViewById(R.id.attacks_button);
         attacks = character.getAttacks();
-        button_equipment = view.findViewById(R.id.equipment_button);
+        Button button_equipment = view.findViewById(R.id.equipment_button);
         equipment = character.getEquipment();
-        button_other_proficiencies = view.findViewById(R.id.otherProf_button);
+        Button button_other_proficiencies = view.findViewById(R.id.otherProf_button);
         other_proficiencies = character.getOtherProficiencies();
 
 
-        add_button = view.findViewById(R.id.add_button);
-        cancel_button = view.findViewById(R.id.cancell_button);
+        Button add_button = view.findViewById(R.id.add_button);
+        Button cancel_button = view.findViewById(R.id.cancell_button);
 
 
         TextView strMod = view.findViewById(R.id.str_mod);
@@ -419,7 +409,6 @@ public class CharacterEditFragment extends Fragment {
         dialog.show();
     }
 
-
     /** Send post request to server, adding campaign details into server. */
     private class AddCharacterTask extends AsyncTask<String, Void, String> {
 
@@ -436,11 +425,8 @@ public class CharacterEditFragment extends Fragment {
                     urlConnection.setDoOutput(true);
                     OutputStreamWriter wr =
                             new OutputStreamWriter(urlConnection.getOutputStream());
-                    // For Debugging
-                    Log.i("Edit_Character", mCharacterJSON.toString());
 
                     wr.write(mCharacterJSON.toString());
-
                     wr.flush();
                     wr.close();
                     InputStream content = urlConnection.getInputStream();
@@ -470,12 +456,8 @@ public class CharacterEditFragment extends Fragment {
             try {
                 JSONObject jsonObject = new JSONObject(s);
 
-
-                // For Debugging
-                Log.i("Edit_character", jsonObject.toString());
-
                 if (jsonObject.getBoolean("success")) {
-                    Toast.makeText(getContext().getApplicationContext(), "Character Edited successfully"
+                    Toast.makeText(getContext().getApplicationContext(), "Character edited successfully"
                             , Toast.LENGTH_SHORT).show();
 
                     Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_characters);
@@ -485,7 +467,7 @@ public class CharacterEditFragment extends Fragment {
                     Toast.makeText(getContext().getApplicationContext(), "Character couldn't be edited: "
                                     + jsonObject.getString("error")
                             , Toast.LENGTH_LONG).show();
-                    Log.e("Eddit_Character", jsonObject.getString("error"));
+                    Log.e("Edit_Character", jsonObject.getString("error"));
                 }
             } catch (JSONException e) {
                 Toast.makeText(getContext().getApplicationContext(), "JSON Parsing error on Editing character"

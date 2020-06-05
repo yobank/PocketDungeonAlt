@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,10 +38,8 @@ public class CharacterAddFragment extends Fragment {
     private EditText character_class;
     private EditText character_race;
     private EditText character_level;
-    private Button button_background;
     private String background = "no background";
     private EditText alignment;
-    private Button button_info;
     private String info = "no info";
     private EditText experience;
     private EditText inspiration;
@@ -53,7 +50,6 @@ public class CharacterAddFragment extends Fragment {
     private EditText maxHP;
     private EditText currentHP;
     private EditText hit_dice;
-    private Button button_skills;
     private String skills = "no skills";
     private EditText strength;
     private EditText dexterity;
@@ -62,14 +58,9 @@ public class CharacterAddFragment extends Fragment {
     private EditText wisdom;
     private EditText charisma;
     private EditText perception;
-    private Button button_attacks;
     private String attacks = "no attacks";
-    private Button button_equipment;
     private String equipment = "no equipment";
-    private Button button_other_proficiencies;
     private String other_proficiencies = "no other proficiencies";
-    private Button add_button;
-    private Button cancel_button;
 
     private SharedPreferences mSharedPreferences;
     private JSONObject mCharacterJSON;
@@ -83,9 +74,9 @@ public class CharacterAddFragment extends Fragment {
         character_class = view.findViewById(R.id.character_class_input);
         character_race = view.findViewById(R.id.character_race_input);
         character_level = view.findViewById(R.id.character_level_input);
-        button_background = view.findViewById(R.id.background_button);
+        Button button_background = view.findViewById(R.id.background_button);
         alignment  = view.findViewById(R.id.character_alignment_input);
-        button_info = view.findViewById(R.id.info_button);
+        Button button_info = view.findViewById(R.id.info_button);
         experience = view.findViewById(R.id.character_experience_input);
         inspiration = view.findViewById(R.id.character_inspiration_input);
         proficiency = view.findViewById(R.id.proficiency_input);
@@ -95,7 +86,7 @@ public class CharacterAddFragment extends Fragment {
         maxHP = view.findViewById(R.id.max_hp_input);
         currentHP = view.findViewById(R.id.current_hp_input);
         hit_dice = view.findViewById(R.id.hit_dice_input);
-        button_skills = view.findViewById(R.id.skills_button);
+        Button button_skills = view.findViewById(R.id.skills_button);
         strength = view.findViewById(R.id.str_input);
         dexterity = view.findViewById(R.id.dex_input);
         constitution  = view.findViewById(R.id.con_input);
@@ -103,11 +94,11 @@ public class CharacterAddFragment extends Fragment {
         wisdom = view.findViewById(R.id.wis_input);
         charisma = view.findViewById(R.id.cha_input);
         perception = view.findViewById(R.id.character_perception_input);
-        button_attacks = view.findViewById(R.id.attacks_button);
-        button_equipment = view.findViewById(R.id.equipment_button);
-        button_other_proficiencies = view.findViewById(R.id.otherProf_button);
-        add_button = view.findViewById(R.id.add_button);
-        cancel_button = view.findViewById(R.id.cancell_button);
+        Button button_attacks = view.findViewById(R.id.attacks_button);
+        Button button_equipment = view.findViewById(R.id.equipment_button);
+        Button button_other_proficiencies = view.findViewById(R.id.otherProf_button);
+        Button add_button = view.findViewById(R.id.add_button);
+        Button cancel_button = view.findViewById(R.id.cancell_button);
 
 
         /** Set up add button listener.
