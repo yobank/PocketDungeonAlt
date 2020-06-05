@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/** A class for Campaign object, a campaign has ID, name, notes and player role. */
+/** A class for Campaign object, a campaign has campaign ID, name, description, notes and creator's userID. */
 public class Campaign implements Serializable {
     private int campaignID;
     private String campaignName;

@@ -26,8 +26,8 @@ public class CampaignTest {
     @Test
     public void testCampaignConstructor() {
         int randId = random.nextInt(100) + 1000;
-        int randCreatordId = random.nextInt(100) + 1;
-        assertNotNull(new Campaign(randId, "A Dying Race", "The party fights for their lives in a hostile land.", "Two characters have died so far", randCreatordId));
+        int randCreatorId = random.nextInt(100) + 1;
+        assertNotNull(new Campaign(randId, "A Dying Race", "The party fights for their lives in a hostile land.", "Two characters have died so far", randCreatorId));
     }
 
     // Test getters
@@ -118,22 +118,19 @@ public class CampaignTest {
         campaign.setGetCampaignNotes(newCampaignNotes);
         assertEquals(newCampaignNotes, campaign.getGetCampaignNotes());
     }
-    /*
+
     @Test
     public void testCampaignParseJSONCampaign() {
         String campaignJson = "[{\"campaignname\":\"name1\",\"campaigndescription\":\"desc1\",\"campaignnotes\":\"sample notes1\",\"memberid\":10}," +
                 "{\"campaignname\":\"name\",\"campaigndescription\":\"desc\",\"campaignnotes\":\"sample notes\",\"memberid\":12}," +
                 "{\"campaignname\":\"name2\",\"campaigndescription\":\"desc2\",\"campaignnotes\":\"sample notes2\",\"memberid\":11}]";
         try {
-            List<Campaign> campaignArray = parseCampaignJson(campaignJson);
+            List<Campaign> campaignArray = Campaign.parseCampaignJson(campaignJson);
             assertEquals(campaignArray.size(), 3);
         } catch (JSONException e) {
             e.printStackTrace();
-            fail("Created an JSON Error Exception");
         }
-
     }
-    */
 
     @Test
     public void testParseJsonCampaign() {
@@ -141,11 +138,13 @@ public class CampaignTest {
         try {
             Campaign campaign = Campaign.parseJoinCampaign(json);
             assertNotNull(campaign);
+            assertEquals(campaign.getCampaignID(), 1000);
+            assertEquals(campaign.getCampaignName(), "name");
+            assertEquals(campaign.getGetCampaignDescription(), "desc");
+            assertEquals(campaign.getGetCampaignNotes(), "sample notes");
+            assertEquals(campaign.getCreatorID(), 12);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
-
 }
