@@ -1,3 +1,8 @@
+/**
+ * Fragment class to handle adding campaigns
+ *
+ * @author: James McHugh & Meng Yang
+ */
 package edu.tacoma.wa.pocketdungeonalt.campaign;
 
 import android.content.Context;
@@ -30,6 +35,7 @@ import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.User;
 
+// Class to handle adding a campaign to a users account
 public class CampaignAddFragment extends Fragment {
 
     private EditText campaign_name;
@@ -49,7 +55,6 @@ public class CampaignAddFragment extends Fragment {
 
         /** Set up add button listener.
          * Get campaign name and notes from user entry. */
-        //Button add_button = view.findViewById(R.id.add_button);
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +77,7 @@ public class CampaignAddFragment extends Fragment {
             }
         });
 
+        // Cancel button listener
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

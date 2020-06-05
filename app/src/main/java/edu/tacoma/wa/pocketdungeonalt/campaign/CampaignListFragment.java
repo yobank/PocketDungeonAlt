@@ -1,3 +1,9 @@
+/**
+ * Fragment class to handle the main campaign list screen
+ *
+ * @author: James McHugh & Meng Yang
+ */
+
 package edu.tacoma.wa.pocketdungeonalt.campaign;
 
 import android.content.Context;
@@ -32,6 +38,7 @@ import java.util.List;
 import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 
+// Class for the main campaign list
 public class CampaignListFragment extends Fragment {
 
     private List<Campaign> mCampaignList;
@@ -48,7 +55,6 @@ public class CampaignListFragment extends Fragment {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("clicked");
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_campaign_add);
             }
         });
@@ -96,8 +102,6 @@ public class CampaignListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int campaignId = view.getId();
-                System.out.println(campaignId);
-
                 StringBuilder url = new StringBuilder(getString(R.string.search_campaign));
                 url.append(campaignId);
                 new viewCampaignTask().execute(url.toString());

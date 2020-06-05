@@ -1,3 +1,8 @@
+/**
+ * Fragment class to handle joining campaigns
+ *
+ * @author: James McHugh & Meng Yang
+ */
 package edu.tacoma.wa.pocketdungeonalt.campaign;
 
 import android.app.Activity;
@@ -33,7 +38,7 @@ import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 
-
+// Class to handle the "lobby" when joining a campaign
 public class CampaignJoinFragment extends Fragment {
 
     private List<String> mCharacterList;
@@ -131,6 +136,7 @@ public class CampaignJoinFragment extends Fragment {
         }
     }
 
+    // Attempts to retrieve a list of the other players in the campaign
     private class otherPlayersTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {

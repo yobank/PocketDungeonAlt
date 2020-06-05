@@ -24,6 +24,7 @@ public class SignInActivity extends AppCompatActivity
         implements LoginFragment.LoginFragmentListener, RegisterFragment.RegisterFragmentListener {
 
     private SharedPreferences mSharedPreferences;
+    private boolean mTest = false; // set to false after testing
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class SignInActivity extends AppCompatActivity
                 Context.MODE_PRIVATE);
 
         /** if not logged in, open login screen */
-        if (!mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false)) {
+        if (!mSharedPreferences.getBoolean(getString(R.string.LOGGEDIN), false) || mTest) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.sign_in_fragment_id, new LoginFragment())
                     .commit();

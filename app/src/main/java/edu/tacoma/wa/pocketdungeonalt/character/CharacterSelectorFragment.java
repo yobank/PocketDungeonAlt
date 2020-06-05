@@ -1,3 +1,8 @@
+/**
+ * Fragment class to handle character selection for campaigns
+ *
+ * @author: James McHugh
+ */
 package edu.tacoma.wa.pocketdungeonalt.character;
 
 import android.content.Context;
@@ -34,6 +39,7 @@ import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 import edu.tacoma.wa.pocketdungeonalt.model.User;
 
+// Class for the character selector which appears during campaign join
 public class CharacterSelectorFragment extends Fragment {
 
     private List<Character> mCharacterList;
@@ -47,8 +53,6 @@ public class CharacterSelectorFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_character_selector, container, false);
         campaign = (Campaign) getArguments().getSerializable("CAMPAIGN");
-
-        System.out.println("1: " + campaign.getCampaignName());
 
         mRecyclerView = view.findViewById(R.id.recyclerView);
         assert mRecyclerView != null;
@@ -92,9 +96,6 @@ public class CharacterSelectorFragment extends Fragment {
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                System.out.println("clicked");
-                // join campaign then go back to campaign list
 
                 Character item = (Character) view.getTag();
                 try {
@@ -230,7 +231,6 @@ public class CharacterSelectorFragment extends Fragment {
                     OutputStreamWriter wr =
                             new OutputStreamWriter(urlConnection.getOutputStream());
                     wr.write(mCampCharJSON.toString());
-                    System.out.println(mCampCharJSON.toString());
                     wr.flush();
                     wr.close();
 

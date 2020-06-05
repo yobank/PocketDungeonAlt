@@ -1,3 +1,8 @@
+/**
+ * Fragment class to handle adding characters
+ *
+ * @author: James McHugh
+ */
 package edu.tacoma.wa.pocketdungeonalt.character;
 
 import android.app.AlertDialog;
@@ -32,8 +37,10 @@ import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 import edu.tacoma.wa.pocketdungeonalt.model.User;
 
+// class to handle adding characters
 public class CharacterAddFragment extends Fragment {
 
+    // lots of fields to input
     private EditText character_name;
     private EditText character_class;
     private EditText character_race;
@@ -106,8 +113,6 @@ public class CharacterAddFragment extends Fragment {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // make default values or prevent creation unless values are filled in
 
                 String characterName = character_name.getText().toString();
                 String characterClass = character_class.getText().toString();
@@ -186,7 +191,7 @@ public class CharacterAddFragment extends Fragment {
             }
         });
 
-
+        // set up listeners for all of the buttons
         button_background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -238,7 +243,7 @@ public class CharacterAddFragment extends Fragment {
         return view;
     }
 
-
+    // All of the methods to display popup dialogs
     private void showBackgroundDialog(Context c) {
         final EditText editText = new EditText(c);
         editText.setText(background);
@@ -275,7 +280,6 @@ public class CharacterAddFragment extends Fragment {
         dialog.show();
     }
 
-    // can improve this later by changing from text entry to list of avalible skills
     private void showSkillsDialog(Context c) {
         final EditText editText = new EditText(c);
         editText.setText(skills);
@@ -419,63 +423,6 @@ public class CharacterAddFragment extends Fragment {
                                 + e.getMessage()
                         , Toast.LENGTH_LONG).show();
                 Log.e("Add_Character", e.getMessage());
-            }
-        }
-    }
-
-    /** Search character by character code. If successful, go to join character screen and display result. */
-    private class SearchCharacterTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-            String response = "";
-            HttpURLConnection urlConnection = null;
-            for (String url : urls) {
-                try {
-                    URL urlObject = new URL(url);
-                    urlConnection = (HttpURLConnection) urlObject.openConnection();
-
-                    InputStream content = urlConnection.getInputStream();
-                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
-                    while ((s = buffer.readLine()) != null) {
-                        response += s;
-                    }
-                } catch (Exception e) {
-                    response = "Unable to find the character, Reason: "
-                            + e.getMessage();
-                }
-                finally {
-                    if (urlConnection != null)
-                        urlConnection.disconnect();
-                }
-            }
-            return response;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            if (s.startsWith("Unable to")) {
-                Toast.makeText(getContext().getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            try {
-                JSONObject jsonObject = new JSONObject(s);
-
-                if (jsonObject.getBoolean("success")) {
-
-//                    Character character = Character.parseJoinCharacter(
-//                            jsonObject.getString("names"));
-//
-//                    //Intent intent = new Intent(CampaignAddActivity.this, CampaignJoinActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
-                    //intent.putExtras(bundle);
-                    //startActivity(intent);
-                }
-
-            } catch (JSONException e) {
-                Toast.makeText(getContext().getApplicationContext(), "Unable to find campaign: Invalid Code",
-                        Toast.LENGTH_SHORT).show();
             }
         }
     }

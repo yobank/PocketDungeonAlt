@@ -1,3 +1,8 @@
+/**
+ * Fragment class to handle viewing characters
+ *
+ * @author: James McHugh
+ */
 package edu.tacoma.wa.pocketdungeonalt.character;
 
 import android.app.AlertDialog;
@@ -20,8 +25,10 @@ import java.io.Serializable;
 import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 
+// Class to handle viewing characters
 public class CharacterViewFragment extends Fragment {
 
+    // default values for string fields
     private String background = "no background";
     private String info = "no info";
     private String skills = "no skills";
@@ -93,6 +100,7 @@ public class CharacterViewFragment extends Fragment {
 
         Button add_button = view.findViewById(R.id.add_button);
 
+        // calculate stat modifiers
         TextView strMod = view.findViewById(R.id.str_mod);
         TextView dexMod = view.findViewById(R.id.dex_mod);
         TextView conMod = view.findViewById(R.id.con_mod);
@@ -125,7 +133,7 @@ public class CharacterViewFragment extends Fragment {
             }
         });
 
-
+        // set up button listeners
         button_background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,6 +179,7 @@ public class CharacterViewFragment extends Fragment {
         return view;
     }
 
+    // function to calculate stat modifiers, returns a formatted string
     private String calcMod(double val) {
         double vall = (val - 10) / 2;
         if (vall < 0) {
@@ -183,6 +192,7 @@ public class CharacterViewFragment extends Fragment {
         }
     }
 
+    // functions to show dialog popups
     private void showBackgroundDialog(Context c) {
         final TextView editText = new TextView(c);
         editText.setText(background);
@@ -205,7 +215,6 @@ public class CharacterViewFragment extends Fragment {
         dialog.show();
     }
 
-    // can improve this later by changing from text entry to list of avalible skills
     private void showSkillsDialog(Context c) {
         final TextView editText = new TextView(c);
         editText.setText(skills);
