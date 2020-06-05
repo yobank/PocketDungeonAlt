@@ -1,7 +1,6 @@
 package edu.tacoma.wa.pocketdungeonalt.campaign;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,23 +23,17 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Objects;
 
-import edu.tacoma.wa.pocketdungeonalt.MainActivity;
 import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.User;
 
 public class CampaignAddFragment extends Fragment {
 
-
     private EditText campaign_name;
     private EditText campaign_description;
-    public Button add_button;
-    public Button cancel_button;
     private SharedPreferences mSharedPreferences;
     private JSONObject mCampaignJSON;
 
@@ -52,9 +44,8 @@ public class CampaignAddFragment extends Fragment {
 
         campaign_name = view.findViewById(R.id.campaign_name_input);
         campaign_description = view.findViewById(R.id.campaign_description_input);
-        add_button = view.findViewById(R.id.add_button);
-        cancel_button = view.findViewById(R.id.cancell_button);
-
+        Button add_button = view.findViewById(R.id.add_button);
+        Button cancel_button = view.findViewById(R.id.cancell_button);
 
         /** Set up add button listener.
          * Get campaign name and notes from user entry. */
@@ -87,18 +78,12 @@ public class CampaignAddFragment extends Fragment {
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_campaigns);
             }
         });
-
-
-
         return view;
     }
 
     public void onActivityCreated (@NonNull Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
     }
-
 
     /** Send post request to server, adding campaign details into server. */
     private class AddCampaignTask extends AsyncTask<String, Void, String> {
@@ -116,8 +101,6 @@ public class CampaignAddFragment extends Fragment {
                     urlConnection.setDoOutput(true);
                     OutputStreamWriter wr =
                             new OutputStreamWriter(urlConnection.getOutputStream());
-                    // For Debugging
-                    Log.i("Add_Campaign", mCampaignJSON.toString());
 
                     wr.write(mCampaignJSON.toString());
                     wr.flush();
@@ -128,7 +111,6 @@ public class CampaignAddFragment extends Fragment {
                     while ((s = buffer.readLine()) != null) {
                         response += s;
                     }
-
                 } catch (Exception e) {
                     response = "Unable to add the new campaign, Reason: "
                             + e.getMessage();
@@ -149,15 +131,10 @@ public class CampaignAddFragment extends Fragment {
             try {
                 JSONObject jsonObject = new JSONObject(s);
 
-                // For Debugging
-                Log.i("Add_campaign", jsonObject.toString());
-
                 if (jsonObject.getBoolean("success")) {
                     Toast.makeText(getContext().getApplicationContext(), "Campaign Added successfully"
                             , Toast.LENGTH_SHORT).show();
-
                     Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_campaigns);
-
                 }
                 else {
                     Toast.makeText(getContext().getApplicationContext(), "Campaign couldn't be added: "
@@ -173,7 +150,4 @@ public class CampaignAddFragment extends Fragment {
             }
         }
     }
-
-
-
 }

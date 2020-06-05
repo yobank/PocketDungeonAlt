@@ -1,6 +1,5 @@
 package edu.tacoma.wa.pocketdungeonalt;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,16 +18,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.List;
-
 import edu.tacoma.wa.pocketdungeonalt.authenticate.SignInActivity;
-import edu.tacoma.wa.pocketdungeonalt.compendium.CompendiumWebViewFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
-    //public NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

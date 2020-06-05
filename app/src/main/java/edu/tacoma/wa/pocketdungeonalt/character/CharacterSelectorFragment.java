@@ -38,18 +38,14 @@ public class CharacterSelectorFragment extends Fragment {
 
     private List<Character> mCharacterList;
     private RecyclerView mRecyclerView;
-    private SharedPreferences mSharedPreferences;
     private JSONObject mCharacterJSON;
-    private static StringBuilder url;
     private static JSONObject mCampCharJSON;
     public Campaign campaign;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         View view = inflater.inflate(R.layout.fragment_character_selector, container, false);
-
         campaign = (Campaign) getArguments().getSerializable("CAMPAIGN");
 
         System.out.println("1: " + campaign.getCampaignName());
@@ -59,11 +55,11 @@ public class CharacterSelectorFragment extends Fragment {
         setupRecyclerView(mRecyclerView);
 
         /** Use SharedPreferences to retrieve userID for query. */
-        mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        SharedPreferences mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
 
         /** Set up url and append userID in the url query field. */
-        url = new StringBuilder(getString(R.string.get_characters));
+        StringBuilder url = new StringBuilder(getString(R.string.get_characters));
         url.append(userID);
         mCampCharJSON = new JSONObject();
         mCharacterJSON = new JSONObject();
@@ -73,12 +69,10 @@ public class CharacterSelectorFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         new CharacterSelectorFragment.CharacterTask().execute(url.toString());
 
         return view;
     }
-
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         if (mCharacterList != null) {
@@ -112,8 +106,6 @@ public class CharacterSelectorFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         };
 
@@ -122,7 +114,6 @@ public class CharacterSelectorFragment extends Fragment {
             mParent = parent;
             mValues = items;
         }
-
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -139,7 +130,6 @@ public class CharacterSelectorFragment extends Fragment {
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
-
         }
 
         /** Return the size of character list (invoked by the layout manager) */
@@ -210,9 +200,6 @@ public class CharacterSelectorFragment extends Fragment {
                 if (jsonObject.getBoolean("success")) {
                     mCharacterList = Character.parseCharacterJSON(
                             jsonObject.getString("names"));
-
-                    // For Debugging
-                    Log.i("characterJson", mCharacterJSON.toString());
 
                     if (!mCharacterList.isEmpty()) {
                         setupRecyclerView(mRecyclerView);

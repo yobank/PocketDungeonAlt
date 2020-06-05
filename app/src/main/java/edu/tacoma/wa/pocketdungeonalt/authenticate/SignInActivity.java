@@ -1,3 +1,9 @@
+/**
+ * This class checks if a user has previously signed in the app.
+ * If yes, display main screen. Otherwise, display log in screen.
+ *
+ * @author: Meng Yang
+ */
 package edu.tacoma.wa.pocketdungeonalt.authenticate;
 
 import androidx.appcompat.app.AppCompatActivity;

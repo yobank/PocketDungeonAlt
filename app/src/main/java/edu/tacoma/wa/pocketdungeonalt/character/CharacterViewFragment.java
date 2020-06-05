@@ -2,7 +2,6 @@ package edu.tacoma.wa.pocketdungeonalt.character;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,8 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import org.json.JSONObject;
-
 import java.io.Serializable;
 
 import edu.tacoma.wa.pocketdungeonalt.R;
@@ -25,43 +22,12 @@ import edu.tacoma.wa.pocketdungeonalt.model.Character;
 
 public class CharacterViewFragment extends Fragment {
 
-    private TextView character_name;
-    private TextView character_class;
-    private TextView character_race;
-    private TextView character_level;
-    private Button button_background;
     private String background = "no background";
-    private TextView alignment;
-    private Button button_info;
     private String info = "no info";
-    private TextView experience;
-    private TextView inspiration;
-    private TextView proficiency;
-    private TextView armor_class;
-    private TextView initiative;
-    private TextView speed;
-    private TextView maxHP;
-    private TextView currentHP;
-    private TextView hit_dice;
-    private Button button_skills;
     private String skills = "no skills";
-    private TextView strength;
-    private TextView dexterity;
-    private TextView constitution;
-    private TextView intelligence;
-    private TextView wisdom;
-    private TextView charisma;
-    private TextView perception;
-    private Button button_attacks;
     private String attacks = "no attacks";
-    private Button button_equipment;
     private String equipment = "no equipment";
-    private Button button_other_proficiencies;
     private String other_proficiencies = "no other proficiencies";
-    private Button add_button;
-
-    private SharedPreferences mSharedPreferences;
-    private JSONObject mCharacterJSON;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,62 +36,62 @@ public class CharacterViewFragment extends Fragment {
 
         final Character character = (Character) getArguments().getSerializable("CHARACTER");
 
-        character_name = view.findViewById(R.id.character_name_input);
+        TextView character_name = view.findViewById(R.id.character_name_input);
         character_name.setText(character.getCharacterName());
-        character_class = view.findViewById(R.id.character_class_input);
+        TextView character_class = view.findViewById(R.id.character_class_input);
         character_class.setText(character.getCharacterClass());
-        character_race = view.findViewById(R.id.character_race_input);
+        TextView character_race = view.findViewById(R.id.character_race_input);
         character_race.setText(character.getCharacterRace());
-        character_level = view.findViewById(R.id.character_level_input);
+        TextView character_level = view.findViewById(R.id.character_level_input);
         character_level.setText(String.valueOf(character.getCharacterLevel()));
-        button_background = view.findViewById(R.id.background_button);
+        Button button_background = view.findViewById(R.id.background_button);
         background = character.getCharacterBackground();
-        alignment  = view.findViewById(R.id.character_alignment_input);
+        TextView alignment = view.findViewById(R.id.character_alignment_input);
         alignment.setText(character.getCharacterAlignment());
-        button_info = view.findViewById(R.id.info_button);
+        Button button_info = view.findViewById(R.id.info_button);
         info = character.getCharacterInfo();
-        experience = view.findViewById(R.id.character_experience_input);
+        TextView experience = view.findViewById(R.id.character_experience_input);
         experience.setText(String.valueOf(character.getExperience()));
-        inspiration = view.findViewById(R.id.character_inspiration_input);
+        TextView inspiration = view.findViewById(R.id.character_inspiration_input);
         inspiration.setText(String.valueOf(character.getInspiration()));
-        proficiency = view.findViewById(R.id.proficiency_input);
+        TextView proficiency = view.findViewById(R.id.proficiency_input);
         proficiency.setText(String.valueOf(character.getProficiency()));
-        armor_class = view.findViewById(R.id.ac_input);
+        TextView armor_class = view.findViewById(R.id.ac_input);
         armor_class.setText(String.valueOf(character.getArmorClass()));
-        initiative = view.findViewById(R.id.character_initiative_input);
+        TextView initiative = view.findViewById(R.id.character_initiative_input);
         initiative.setText(String.valueOf(character.getInitiative()));
-        speed = view.findViewById(R.id.speed_input);
+        TextView speed = view.findViewById(R.id.speed_input);
         speed.setText(character.getSpeed());
-        maxHP = view.findViewById(R.id.max_hp_input);
+        TextView maxHP = view.findViewById(R.id.max_hp_input);
         maxHP.setText(String.valueOf(character.getMaxHP()));
-        currentHP = view.findViewById(R.id.current_hp_input);
+        TextView currentHP = view.findViewById(R.id.current_hp_input);
         currentHP.setText(String.valueOf(character.getCurrentHP()));
-        hit_dice = view.findViewById(R.id.hit_dice_input);
+        TextView hit_dice = view.findViewById(R.id.hit_dice_input);
         hit_dice.setText(character.getHitDice());
-        button_skills = view.findViewById(R.id.skills_button);
+        Button button_skills = view.findViewById(R.id.skills_button);
         skills = character.getSkills();
-        strength = view.findViewById(R.id.str_input);
+        TextView strength = view.findViewById(R.id.str_input);
         strength.setText(String.valueOf(character.getStrength()));
-        dexterity = view.findViewById(R.id.dex_input);
+        TextView dexterity = view.findViewById(R.id.dex_input);
         dexterity.setText(String.valueOf(character.getDexterity()));
-        constitution  = view.findViewById(R.id.con_input);
+        TextView constitution = view.findViewById(R.id.con_input);
         constitution.setText(String.valueOf(character.getConstitution()));
-        intelligence = view.findViewById(R.id.int_input);
+        TextView intelligence = view.findViewById(R.id.int_input);
         intelligence.setText(String.valueOf(character.getIntelligence()));
-        wisdom = view.findViewById(R.id.wis_input);
+        TextView wisdom = view.findViewById(R.id.wis_input);
         wisdom.setText(String.valueOf(character.getWisdom()));
-        charisma = view.findViewById(R.id.cha_input);
+        TextView charisma = view.findViewById(R.id.cha_input);
         charisma.setText(String.valueOf(character.getCharisma()));
-        perception = view.findViewById(R.id.character_perception_input);
+        TextView perception = view.findViewById(R.id.character_perception_input);
         perception.setText(String.valueOf(character.getPerception()));
-        button_attacks = view.findViewById(R.id.attacks_button);
+        Button button_attacks = view.findViewById(R.id.attacks_button);
         attacks = character.getAttacks();
-        button_equipment = view.findViewById(R.id.equipment_button);
+        Button button_equipment = view.findViewById(R.id.equipment_button);
         equipment = character.getEquipment();
-        button_other_proficiencies = view.findViewById(R.id.otherProf_button);
+        Button button_other_proficiencies = view.findViewById(R.id.otherProf_button);
         other_proficiencies = character.getOtherProficiencies();
 
-        add_button = view.findViewById(R.id.add_button);
+        Button add_button = view.findViewById(R.id.add_button);
 
         TextView strMod = view.findViewById(R.id.str_mod);
         TextView dexMod = view.findViewById(R.id.dex_mod);
@@ -141,13 +107,12 @@ public class CharacterViewFragment extends Fragment {
         wisMod.setText(calcMod(Integer.parseInt(wisdom.getText().toString())));
         chaMod.setText(calcMod(Integer.parseInt(charisma.getText().toString())));
 
-        mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
+        SharedPreferences mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
         final int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
 
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (character.getCreatorID() == userID) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("CHARACTER", (Serializable) character);
@@ -157,7 +122,6 @@ public class CharacterViewFragment extends Fragment {
                     Toast.makeText(getContext().getApplicationContext(), "Only the owner of this character may edit it.",
                             Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -203,7 +167,6 @@ public class CharacterViewFragment extends Fragment {
                 showOtherProfDialog(getContext());
             }
         });
-
 
         return view;
     }

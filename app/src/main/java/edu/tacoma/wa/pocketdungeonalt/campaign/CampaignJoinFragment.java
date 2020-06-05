@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,6 @@ public class CampaignJoinFragment extends Fragment {
 
     private List<String> mCharacterList;
     private RecyclerView mRecyclerView;
-    private SharedPreferences mSharedPreferences;
 
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +45,7 @@ public class CampaignJoinFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_campaign_join, container, false);
         final Campaign campaign = (Campaign) getArguments().getSerializable("CAMPAIGN");
 
-        mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS),
+        SharedPreferences mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS),
                 Context.MODE_PRIVATE);
         mSharedPreferences.edit()
                 .putInt(getString(R.string.CAMPAIGNID), campaign.getCampaignID())
@@ -71,14 +69,13 @@ public class CampaignJoinFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("CAMPAIGN", (Serializable) campaign);
-                Navigation.findNavController((Activity)view.getContext(), R.id.nav_host_fragment).navigate(R.id.action_nav_campaign_join_to_nav_character_selector, bundle);
-
+                Navigation.findNavController((Activity)view.getContext(), R.id.nav_host_fragment)
+                        .navigate(R.id.action_nav_campaign_join_to_nav_character_selector, bundle);
             }
         });
 
         StringBuilder url = new StringBuilder(getString(R.string.search_characters));
         url.append(campaign.getCampaignID());
-        Log.i("url", url.toString());
         new otherPlayersTask().execute(url.toString());
 
         mRecyclerView = view.findViewById(R.id.player_list);
@@ -87,8 +84,6 @@ public class CampaignJoinFragment extends Fragment {
 
         return view;
     }
-
-
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         if (mCharacterList != null) {

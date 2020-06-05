@@ -1,5 +1,10 @@
+/**
+ * This class construct a Character object.
+ *
+ * @author: James McHugh
+ * @author: Meng Yang
+ */
 package edu.tacoma.wa.pocketdungeonalt.model;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,8 +13,6 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-// fat class
 
 /** A class for Character object, a character has name, class, race, level, strength, dexterity,
  * constitution, intelligence, wisdom and charisma. */
@@ -111,15 +114,6 @@ public class Character implements Serializable {
         this.creatorID = creatorId;
 
     }
-
-
-
-
-/** Should this be removed? */
-//    public String toString() {
-//        String temp = "Name: " + this.mCharacterName + "Level: " + this.mCharacterLevel;
-//        return temp;
-//    }
 
     /** method to construct a character list by parsing JsonObject. */
     public static List<Character> parseCharacterJSON(String characterJson) throws JSONException {
