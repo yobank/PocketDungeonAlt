@@ -119,7 +119,6 @@ public class Character implements Serializable {
     public static List<Character> parseCharacterJSON(String characterJson) throws JSONException {
         List<Character> characterList = new ArrayList<>();
         if (characterJson != null) {
-            System.out.println("helter");
             JSONArray arr = new JSONArray(characterJson);
 
             for (int i = 0; i < arr.length(); i++) {
@@ -157,9 +156,6 @@ public class Character implements Serializable {
 
                 characterList.add(character);
             }
-        }
-        else {
-            System.out.println("skelter");
         }
         return characterList;
     }

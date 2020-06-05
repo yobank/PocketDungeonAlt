@@ -1,3 +1,8 @@
+/**
+ * Fragment class to handle the main character list
+ *
+ * @author: James McHugh
+ */
 package edu.tacoma.wa.pocketdungeonalt.character;
 
 import android.content.Context;
@@ -31,6 +36,7 @@ import java.util.List;
 import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 
+// Class for the main character list screen
 public class CharacterListFragment extends Fragment {
 
     private List<Character> mCharacterList;
@@ -42,6 +48,7 @@ public class CharacterListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_character_list, container, false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         Button add_button = view.findViewById(R.id.add_button);
+        // add button listener to navigate to add character
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

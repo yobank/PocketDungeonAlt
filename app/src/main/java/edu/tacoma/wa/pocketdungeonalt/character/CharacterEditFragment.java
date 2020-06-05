@@ -1,3 +1,8 @@
+/**
+ * Fragment class to handle editing characters
+ *
+ * @author: James McHugh
+ */
 package edu.tacoma.wa.pocketdungeonalt.character;
 
 import android.app.AlertDialog;
@@ -14,28 +19,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 
+// class to handle editing characters
 public class CharacterEditFragment extends Fragment {
 
     private Character character;
-
     private EditText character_name;
     private EditText character_class;
     private EditText character_race;
@@ -63,7 +64,6 @@ public class CharacterEditFragment extends Fragment {
     private String attacks;
     private String equipment;
     private String other_proficiencies;
-
     private SharedPreferences mSharedPreferences;
     private JSONObject mCharacterJSON;
 
@@ -129,11 +129,10 @@ public class CharacterEditFragment extends Fragment {
         Button button_other_proficiencies = view.findViewById(R.id.otherProf_button);
         other_proficiencies = character.getOtherProficiencies();
 
-
         Button add_button = view.findViewById(R.id.add_button);
         Button cancel_button = view.findViewById(R.id.cancell_button);
 
-
+        // calculate stat modifiers
         TextView strMod = view.findViewById(R.id.str_mod);
         TextView dexMod = view.findViewById(R.id.dex_mod);
         TextView conMod = view.findViewById(R.id.con_mod);
@@ -141,12 +140,12 @@ public class CharacterEditFragment extends Fragment {
         TextView wisMod = view.findViewById(R.id.wis_mod);
         TextView chaMod = view.findViewById(R.id.cha_mod);
 
-        strMod.setText(calcMod(Integer.valueOf(strength.getText().toString())));
-        dexMod.setText(calcMod(Integer.valueOf(dexterity.getText().toString())));
-        conMod.setText(calcMod(Integer.valueOf(constitution.getText().toString())));
-        intMod.setText(calcMod(Integer.valueOf(intelligence.getText().toString())));
-        wisMod.setText(calcMod(Integer.valueOf(wisdom.getText().toString())));
-        chaMod.setText(calcMod(Integer.valueOf(charisma.getText().toString())));
+        strMod.setText(calcMod(Integer.parseInt(strength.getText().toString())));
+        dexMod.setText(calcMod(Integer.parseInt(dexterity.getText().toString())));
+        conMod.setText(calcMod(Integer.parseInt(constitution.getText().toString())));
+        intMod.setText(calcMod(Integer.parseInt(intelligence.getText().toString())));
+        wisMod.setText(calcMod(Integer.parseInt(wisdom.getText().toString())));
+        chaMod.setText(calcMod(Integer.parseInt(charisma.getText().toString())));
 
 
         /** Set up add button listener.
@@ -191,10 +190,6 @@ public class CharacterEditFragment extends Fragment {
                 if (!charisma.getText().toString().matches("")) { cha = Integer.parseInt(charisma.getText().toString()); }
                 int prcp = 0;
                 if (!perception.getText().toString().matches("")) { prcp = Integer.parseInt(perception.getText().toString()); }
-                System.out.println("1");
-
-                mSharedPreferences = getContext().getSharedPreferences(getString(R.string.LOGIN_PREFS), Context.MODE_PRIVATE);
-                int userID = mSharedPreferences.getInt(getString(R.string.USERID), 0);
 
                 StringBuilder url = new StringBuilder(getString(R.string.update_character));
                 mCharacterJSON = new JSONObject();
@@ -234,13 +229,13 @@ public class CharacterEditFragment extends Fragment {
             }
         });
 
+        // listeners for all of the buttons
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_characters);
             }
         });
-
 
         button_background.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,6 +282,7 @@ public class CharacterEditFragment extends Fragment {
         return view;
     }
 
+    // Function to calculate the stat modifiers, returns the modifier in string format
     private String calcMod(double val) {
         double vall = (val - 10) / 2;
         if (vall < 0) {
@@ -299,7 +295,7 @@ public class CharacterEditFragment extends Fragment {
         }
     }
 
-
+    // Functions to show dialog popups for all of the buttons
     private void showBackgroundDialog(Context c) {
         final EditText editText = new EditText(c);
         editText.setText(background);

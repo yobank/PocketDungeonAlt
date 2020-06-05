@@ -35,7 +35,7 @@ import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.User;
 
-// Class for the campaign add screen
+// Class to handle adding a campaign to a users account
 public class CampaignAddFragment extends Fragment {
 
     private EditText campaign_name;
@@ -77,6 +77,7 @@ public class CampaignAddFragment extends Fragment {
             }
         });
 
+        // Cancel button listener
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

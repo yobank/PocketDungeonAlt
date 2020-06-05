@@ -1,3 +1,8 @@
+/**
+ * The main activity which acts as the backbone for the whole app
+ *
+ * @author: James McHugh
+ */
 package edu.tacoma.wa.pocketdungeonalt;
 
 import android.content.Context;
@@ -20,6 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import edu.tacoma.wa.pocketdungeonalt.authenticate.SignInActivity;
 
+// The main activity which all of the fragments are build upon
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -33,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_campaigns, R.id.nav_characters, R.id.nav_compendium)
                 .setDrawerLayout(drawer)
                 .build();
@@ -45,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }

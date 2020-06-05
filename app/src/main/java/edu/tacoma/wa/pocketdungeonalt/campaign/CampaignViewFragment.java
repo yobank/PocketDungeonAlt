@@ -40,7 +40,7 @@ import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.Character;
 
-// Class for the campaign view
+// Class to handle the campaign view for when a user opens a campaign from the list
 public class CampaignViewFragment extends Fragment {
 
     private List<Character> mCharacterList;
@@ -70,6 +70,7 @@ public class CampaignViewFragment extends Fragment {
         campaign_description.setText(campaign.getGetCampaignDescription());
         campaign_notes = campaign.getGetCampaignNotes();
 
+        // campaign notes button listener
         campaign_notes_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +78,7 @@ public class CampaignViewFragment extends Fragment {
             }
         });
 
+        // edit button listener
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +94,7 @@ public class CampaignViewFragment extends Fragment {
             }
         });
 
+        // invite button listener
         share_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,7 +196,7 @@ public class CampaignViewFragment extends Fragment {
         }
     }
 
-
+    // CharactersTask attempts to retrieve a character from the database
     private class CharactersTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {

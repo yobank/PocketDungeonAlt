@@ -38,7 +38,7 @@ import edu.tacoma.wa.pocketdungeonalt.R;
 import edu.tacoma.wa.pocketdungeonalt.model.Campaign;
 import edu.tacoma.wa.pocketdungeonalt.model.User;
 
-// Class for the campaign edit screen
+// Class to handle editing campaigns
 public class CampaignEditFragment extends Fragment {
 
     private Campaign campaign;
@@ -95,6 +95,7 @@ public class CampaignEditFragment extends Fragment {
                 }
             }
         });
+        // cancel button listener
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
