@@ -1,11 +1,11 @@
 Pocket Dungeon
 
 ## CHANGES FROM SPRINT 1 ##
-- The biggest piece of feedback we recieved was that our navigation felt very unintuitive so we revamped the whole app to use a navigation drawer layout, making navigating between screens much easier.
+- The biggest piece of feedback we received was that our navigation felt very unintuitive, so we revamped the whole app to use a navigation drawer layout, making navigating between screens much easier.
 
 ## IMPLEMENTED USER STORIES ##
 - A new user can register for an account with an email and password
-- A returning user can login using their email and password and have their account information saved
+- A returning user can login using their email and password and have thier account information saved
 - Users can create new Dungeons & Dragons campaigns which other users can then join
 - Players can search for campaigns by their unique campaign code and then join with one of their characters
 - The creator of a campaign can send invites to other users to join thier campaign
@@ -14,10 +14,12 @@ Pocket Dungeon
 - Members of a campaign can view the character sheets of any joined players
 - The creator of a campaign can add notes pertaining to said campaign which all joined players can view
 - Users can search for information pertaining to Dungeons & Dragons 5th edition
+- Users can roll a variety of dice used in Dungeons & Dragons
 - Users can log out of the app
 
 ## DEVICE STORAGE ##
 - We store user login information in SharedPreferences for automatic sign in
+- SharedPreferences also stores all campaignids, characterids, and userids
 
 
 ## TESTING TIPS ##
@@ -27,3 +29,7 @@ Pocket Dungeon
 - Sample Testing accounts
 	email: tester1@email.com
 	password: password
+
+- Sample Campaign Code to test joining a campaign: 1022
+
+- During development, the app was tested on the Nexus 5X and the Pixel 2. All screens should display fine on devices of all sizes, but incase anyone runs in to elements being clipped off screen, those two devices are confirmed to work.
